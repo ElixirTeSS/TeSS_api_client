@@ -1,0 +1,18 @@
+class TessApi
+  require 'inifile'
+  require 'net/http'
+  require 'net/https'
+  require 'material'
+  require 'content_provider'
+  require 'event'
+  require 'json'
+  require 'uploader'
+  require 'scraper_config'
+  require 'httparty'
+  require 'rdfa_extractor'
+  require 'json/ld'
+  require 'nokogiri'
+  require 'open-uri'
+  require 'digest/sha1'
+  require 'rdf/rdfa'
+end
