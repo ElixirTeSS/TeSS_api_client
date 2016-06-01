@@ -3,31 +3,28 @@ class Event
       :start,:end,:sponsor,:venue,:city,:county, :country,:postcode,:latitude,:longitude,:id, 
       :content_provider_id
 
-  def initialize(id=nil, content_provider_id=nil, external_id=nil,title=nil,subtitle=nil,url=nil,provider=nil,
-                 field=nil, description=nil,keywords=nil,category=nil,start_date=nil,end_date=nil,sponsor=nil,
-                 venue=nil,city=nil,county=nil,country=nil,postcode=nil,latitude=nil,longitude=nil)
-
-    @id = id
-    @content_provider_id = content_provider_id
-    @external_id = external_id
-    @title = title
-    @subtitle = subtitle
-    @url = url
-    @provider = provider
-    @field = field
-    @description = description
-    @keywords = keywords
-    @category = category
-    @start = start_date
-    @end = end_date
-    @sponsor = sponsor
-    @venue = venue
-    @city = city
-    @county = county
-    @country = country
-    @postcode = postcode
-    @latitude = latitude
-    @longitude = longitude
+  def initialize(options={})
+    @id = options[:id]
+    @content_provider_id = options[:content_provider_id]
+    @external_id = options[:external_id]
+    @title = options[:title]
+    @subtitle = options[:subtitle]
+    @url = options[:url]
+    @provider = options[:provider]
+    @field = options[:field]
+    @description = options[:description]
+    @keywords = options[:keywords]
+    @category = options[:category]
+    @start = options[:start_date]
+    @end = options[:end_date]
+    @sponsor = options[:sponsor]
+    @venue = options[:venue]
+    @city = options[:city]
+    @county = options[:county]
+    @country = options[:country]
+    @postcode = options[:postcode]
+    @latitude = options[:latitude]
+    @longitude = options[:longitude]
   end
 
 

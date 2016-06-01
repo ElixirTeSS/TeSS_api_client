@@ -2,25 +2,24 @@ class Material
   attr_accessor :title, :url, :short_description, :doi, :remote_updated_date, :remote_created_date, :content_provider_id,
                 :scientific_topic_names, :keywords, :id, :authors, :long_description
 
-  def initialize(title=nil, url=nil, short_description=nil, doi=nil, remote_updated_date=nil, remote_created_date=nil,
-                 content_provider_id=nil, scientific_topics=[], keywords=[], licence=nil, difficulty_level=nil,
-                 contributors=[], authors=[], target_audience=[], id=nil, long_description=nil)
-    @title = title
-    @url = url
-    @short_description = short_description 
-    @doi = doi 
-    @remote_updated_date = remote_updated_date 
-    @remote_created_date = remote_created_date 
-    @content_provider_id = content_provider_id 
-    @scientific_topic_names = scientific_topics
-    @keywords = keywords 
-    @licence = licence 
-    @difficulty_level = difficulty_level 
-    @contributors = contributors 
-    @authors = authors 
-    @target_audience = target_audience
-    @id = id
-    @long_description = long_description
+
+  def initialize(options={})
+    @title = options[:title]
+    @url = options[:url]
+    @short_description = options[:short_description]
+    @doi = options[:doi]
+    @remote_updated_date = options[:remote_updated_date]
+    @remote_created_date = options[:remote_created_date]
+    @content_provider_id = options[:content_provider_id]
+    @licence = options[:licence]
+    @id = options[:id]
+    @long_description = options[:long_description]
+    @difficulty_level = options[:difficulty_level]
+    @scientific_topic_names = options[:scientific_topics] || []
+    @keywords = options[:keywords] || []
+    @contributors = options[:contributors] || []
+    @authors = options[:authors] || []
+    @target_audience = options[:target_audience] || []
   end
 
 
