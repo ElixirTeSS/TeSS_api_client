@@ -21,15 +21,15 @@ content_provider = ContentProvider.new(
     )
 content_provider = Uploader.create_or_update_content_provider(content_provider)
 
-material = Material.new(title = 'How to use TeSS API',
-                          url = 'http://mysite.org/tess_api',
-                          short_description = "Everything you need to know to get you started using the TeSS API",
-                          doi = 'http://dx.doi.org/10002-20fk',
-                          remote_updated_date = Time.now,
-                          remote_created_date = nil,
-                          content_provider_id = content_provider['id'],
-                          scientific_topic = ['Computational Biology'],
-                          keywords = ['tutorial', 'TeSS', 'sharing'])
+material = Material.new(title: 'How to use TeSS API',
+                        url: 'http://mysite.org/tess_api',
+                        short_description: "Everything you need to know to get you started using the TeSS API",
+                        doi: 'http://dx.doi.org/10002-20fk',
+                        remote_updated_date: Time.now,
+                        remote_created_date: nil,
+                        content_provider_id: content_provider['id'],
+                        scientific_topic: ['Computational Biology'],
+                        keywords: ['tutorial', 'TeSS', 'sharing'])
                           
 Uploader.create_or_update_material(upload_material)
 ```
