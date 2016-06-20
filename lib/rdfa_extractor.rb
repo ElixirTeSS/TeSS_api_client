@@ -35,7 +35,11 @@ class RdfaExtractor
       # This contains pointers to all of the properties the schema instance has.
       # Find this root node to start:
       if !json_graph.nil?
-          objects = json_graph.select{|node| node["@type"].include?("schema:#{type}") or node["@type"].include?("https://schema.org/#{type}") if node["@type"]}
+          objects = json_graph.select do |node| 
+            if node["@type"]
+              node["@type"].include?("schema:#{type}") or node["@type"].include?("https://schema.org/#{type}") or node["@type"].include?("http://schema.org/#{type}") 
+            end
+          end
 
           #root.keys gets the list of all the properties for this schema. For example a CreativeWork will return =>
           #["@id", "@type", "dc:created", "dc:date", "rss:modules/content/encoded", "schema:audience",
