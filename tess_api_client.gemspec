@@ -12,4 +12,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'json', '~> 1.8'
   s.add_development_dependency 'httparty', '~> 0.13'
   s.add_development_dependency 'net', '~> 0.3'
+  s.add_development_dependency 'linkeddata', '~> 2.0'
+  s.add_development_dependency 'rdf', '~> 0.3'
 end
