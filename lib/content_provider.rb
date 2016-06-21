@@ -1,14 +1,22 @@
 class ContentProvider
-  attr_accessor :title,:url,:logo_url,:description,:id
 
-  def initialize(title=nil, url=nil, logo_url=nil,description=nil,id=nil)
-  	@title = title
-  	@url = url
-  	@image_url = logo_url
-    @description = description
-    @id = id
+  PROVIDER_TYPE = {
+      :ORGANISATION => "Organisation",
+      :PORTAL => "Portal",
+      :PROJECT => "Project"
+      }#, :Individual' => "Individual"}
+
+  attr_accessor :title, :url, :image_url, :description,:id, :content_provider_type, :node_name
+
+  def initialize(options={})
+    @title = options[:title]
+  	@url = options[:url]
+  	@image_url = options[:image_url]
+    @description = options[:description]
+    @id = options[:id]
+    @content_provider_type = options[:content_provider_type] || PROVIDER_TYPE[:ORGANISATION]
+    @node_name = options[:node]
   end
-
 
   def dump
     hash = {}
