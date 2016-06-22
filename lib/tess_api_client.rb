@@ -5,6 +5,7 @@ class TessApi
   require 'material'
   require 'content_provider'
   require 'event'
+  require 'node'
   require 'json'
   require 'uploader'
   require 'scraper_config'
