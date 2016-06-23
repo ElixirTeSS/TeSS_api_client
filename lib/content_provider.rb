@@ -6,7 +6,7 @@ class ContentProvider
       :PROJECT => "Project"
       }#, :Individual' => "Individual"}
 
-  attr_accessor :title, :url, :image_url, :description,:id, :content_provider_type, :node_name
+  attr_accessor :title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords
 
   def initialize(options={})
     @title = options[:title]
@@ -16,6 +16,7 @@ class ContentProvider
     @id = options[:id]
     @content_provider_type = options[:content_provider_type] || PROVIDER_TYPE[:ORGANISATION]
     @node_name = options[:node]
+    @keywords = options[:keywords] || []
   end
 
   def dump
