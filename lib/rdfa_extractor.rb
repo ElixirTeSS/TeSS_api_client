@@ -100,16 +100,10 @@ class RdfaExtractor
         if node
           node.delete("@id") if node.has_key?('@id')
           node.delete("@type") if node.has_key?('@type')
-          node.values.each do |value|
-           if value.class == String
-                labels << value
-            elsif value.class == Hash
-              labels << value["@value"]
-            end
-          end
+          return node
         else
             return id
         end
-        return labels.flatten.uniq
+        return labels
     end
 end
