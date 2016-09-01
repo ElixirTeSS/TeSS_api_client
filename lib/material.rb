@@ -1,6 +1,6 @@
 class Material
   attr_accessor :title, :url, :short_description, :doi, :remote_updated_date, :remote_created_date, :content_provider_id,
-                :scientific_topic_names, :keywords, :id, :authors, :long_description
+                :scientific_topic_names, :keywords, :id, :authors, :long_description, :last_scraped, :scraper_record
 
 
   def initialize(options={})
@@ -20,6 +20,8 @@ class Material
     @contributors = options[:contributors] || []
     @authors = options[:authors] || []
     @target_audience = options[:target_audience] || []
+    @last_scraped = Time.now
+    @scraper_record = true
   end
 
 
