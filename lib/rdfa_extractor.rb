@@ -49,7 +49,7 @@ class RdfaExtractor
           results_collection = []
           objects.each do |object| 
               # Toss aside the @type and @id - we don't need them for now
-              attributes = object.keys - ["@type", "@id"]
+              attributes = object.keys - ["@type"]
                   # Go through the list of properties contained in the schema instance and extract each value to put into our return hash.
               # In most cases these contain an ID which we need to use the original json_graph object to lookup the value of. 
               # (see ==Array and has_key?(@id) cases below)
@@ -100,16 +100,10 @@ class RdfaExtractor
         if node
           node.delete("@id") if node.has_key?('@id')
           node.delete("@type") if node.has_key?('@type')
-          node.values.each do |value|
-           if value.class == String
-                labels << value
-            elsif value.class == Hash
-              labels << value["@value"]
-            end
-          end
+          return node
         else
             return id
         end
-        return labels.flatten.uniq
+        return labels
     end
 end
