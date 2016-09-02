@@ -25,6 +25,9 @@ class Event
     @postcode = options[:postcode]
     @latitude = options[:latitude]
     @longitude = options[:longitude]
+    @longitude = options[:online]
+    @for_profit = options[:for_profit]
+    @online = options[:online]
   end
 
 
