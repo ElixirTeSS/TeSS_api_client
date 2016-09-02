@@ -1,7 +1,7 @@
 class Event
   attr_accessor :external_id, :title,:subtitle,:url,:provider,:field,:description,:keywords,:category,
       :start,:end,:sponsor,:venue,:city,:county, :country,:postcode,:latitude,:longitude,:id, 
-      :content_provider_id
+      :content_provider_id,:last_scraped,:scraper_record
 
   def initialize(options={})
     @id = options[:id]
@@ -25,9 +25,10 @@ class Event
     @postcode = options[:postcode]
     @latitude = options[:latitude]
     @longitude = options[:longitude]
-    @longitude = options[:online]
     @for_profit = options[:for_profit]
     @online = options[:online]
+    @last_scraped = Time.now
+    @scraper_record = true
   end
 
 
