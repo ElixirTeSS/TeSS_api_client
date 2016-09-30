@@ -1,23 +1,31 @@
 class Event
-  attr_accessor :external_id, :title,:subtitle,:url,:provider,:field,:description,:keywords,:category,
-      :start,:end,:sponsor,:venue,:city,:county, :country,:postcode,:latitude,:longitude,:id, 
-      :content_provider_id,:last_scraped,:scraper_record
+  attr_accessor :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
+                :scraper_record, :description, :scientific_topic_names, :event_types,
+                :keywords, :start, :end, :sponsor, :online, :for_profit, :venue,
+                :city, :county, :country, :postcode, :latitude, :longitude,
+                :package_ids, :node_ids, :target_audience, :eligibility,
+                :host_institutions, :capacity, :contact, 
+                :external_resources_attributes
+
 
   def initialize(options={})
-    @id = options[:id]
     @content_provider_id = options[:content_provider_id]
     @external_id = options[:external_id]
     @title = options[:title]
     @subtitle = options[:subtitle]
     @url = options[:url]
-    @provider = options[:provider]
-    @field = options[:field]
+    @organizer = options[:organizer]
+    @last_scraped = Time.now
+    @scraper_record = true
     @description = options[:description]
-    @keywords = options[:keywords]
-    @category = options[:category]
+    @scientific_topic_names = options[:scientific_topic_names] #Array
+    @event_types =  options[:event_types] #Array
+    @keywords = options[:keywords] #Array
     @start = options[:start_date]
     @end = options[:end_date]
     @sponsor = options[:sponsor]
+    @online = options[:online] #Boolean
+    @for_profit = options[:for_profit] #Boolean
     @venue = options[:venue]
     @city = options[:city]
     @county = options[:county]
@@ -25,10 +33,14 @@ class Event
     @postcode = options[:postcode]
     @latitude = options[:latitude]
     @longitude = options[:longitude]
-    @for_profit = options[:for_profit]
-    @online = options[:online]
-    @last_scraped = Time.now
-    @scraper_record = true
+    @package_ids = options[:package_ids] #Array
+    @node_ids = options[:node_ids] #Array
+    @target_audience = options[:target_audience] #Array
+    @eligibility = options[:eligibility] #Array
+    @host_institutions = options[:host_institutions] #Array
+    @capacity = options[:capacity]
+    @contact  = options[:contact]
+    @external_resources_attributes = options[:external_resources_attributes] # Hash = [:id => x, :url => y, :title => z, :_destroy => true]
   end
 
 
