@@ -1,5 +1,5 @@
 class Event
-  attr_accessor :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
+  attr_accessor :id, :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
                 :scraper_record, :description, :scientific_topic_names, :event_types,
                 :keywords, :start, :end, :sponsor, :online, :for_profit, :venue,
                 :city, :county, :country, :postcode, :latitude, :longitude,
@@ -7,8 +7,16 @@ class Event
                 :host_institutions, :capacity, :contact, 
                 :external_resources_attributes
 
+  EVENT_TYPE = {
+      :awards_and_prizegivings => "awards_and_prizegivings",
+      :meetings_and_conferences => "meetings_and_conferences",
+      :receptions_and_networking => "receptions_and_networking",
+      :workshops_and_courses => "workshops_and_courses"
+      }
+
 
   def initialize(options={})
+    @id = options[:id]
     @content_provider_id = options[:content_provider_id]
     @external_id = options[:external_id]
     @title = options[:title]

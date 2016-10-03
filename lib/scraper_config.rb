@@ -31,4 +31,8 @@ class ScraperConfig
   def self.debug?
     return myini = IniFile.load('uploader_config.txt')['Main']['debug'] || false
   end
+
+  def self.google_api_key
+    return myini = IniFile.load('uploader_config.txt')['Main']['google_api_key'] || ''
+  end
 end
