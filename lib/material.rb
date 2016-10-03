@@ -1,5 +1,5 @@
 class Material
-  attr_accessor :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
+  attr_accessor :id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
                 :remote_created_date,  :remote_updated_date, :package_ids, :content_provider_id,
                 :content_provider, :keywords, :scientific_topic_names, :licence, :difficulty_level,
                 :contributors, :authors, :target_audience, :node_ids, :external_resources_attributes
