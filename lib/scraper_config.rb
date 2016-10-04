@@ -2,7 +2,7 @@ class ScraperConfig
 
   def self.get_config
     host, port, protocol, user_email, user_token = nil
-    myini = IniFile.load('uploader_config.txt')
+    myini = IniFile.load('../uploader_config.txt')
 
     unless myini
       raise "Can't open config file!"
@@ -29,10 +29,10 @@ class ScraperConfig
   end
 
   def self.debug?
-    return myini = IniFile.load('uploader_config.txt')['Main']['debug'] || false
+    return myini = IniFile.load('../uploader_config.txt')['Main']['debug'] || false
   end
 
   def self.google_api_key
-    return myini = IniFile.load('uploader_config.txt')['Main']['google_api_key'] || ''
+    return myini = IniFile.load('../uploader_config.txt')['Main']['google_api_key'] || ''
   end
 end
