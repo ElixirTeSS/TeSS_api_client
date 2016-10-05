@@ -2,6 +2,7 @@ class TessApi
   require 'inifile'
   require 'net/http'
   require 'net/https'
+  require 'resource'
   require 'material'
   require 'content_provider'
   require 'event'
@@ -16,4 +17,5 @@ class TessApi
   require 'open-uri'
   require 'digest/sha1'
   require 'rdf/rdfa'
+  require 'active_support/core_ext/hash'
 end

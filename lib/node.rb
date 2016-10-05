@@ -1,6 +1,8 @@
-class Node
+class Node < Resource
 
-  NODE_NAMES={
+  attr_accessor :name, :url, :image_url, :description, :member_status, :id
+
+  NODE_NAMES = {
       :CZ => "Czech Republic",
       :DK => "Denmark",
       :'EMBL-EBI' => "EMBL-EBI",
@@ -27,14 +29,11 @@ class Node
       :OBSERVER => 'Observer'
   }
 
-  attr_accessor :name, :url, :image_url, :description, :member_status, :id
 
-  def initialize(options={})
-    @name = options[:title]
-    @url = options[:url]
-    @image_url = options[:image_url]
-    @description = options[:description]
-    @member_status = options[:member_status] || MEMBER_STATUS[:OBSERVER]
-    @id = options[:id]
+  def initialize(params = {})
+    params[:member_status] ||= MEMBER_STATUS[:OBSERVER]
+
+    super
   end
+
 end
