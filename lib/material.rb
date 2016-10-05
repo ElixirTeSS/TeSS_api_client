@@ -1,11 +1,12 @@
 class Material
   attr_accessor :id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
                 :remote_created_date,  :remote_updated_date, :package_ids, :content_provider_id,
-                :content_provider, :keywords, :scientific_topic_names, :licence, :difficulty_level,
+                :keywords, :scientific_topic_names, :licence, :difficulty_level,
                 :contributors, :authors, :target_audience, :node_ids, :external_resources_attributes
 
   def initialize(options={})
     @id = options[:id]
+    @content_provider_id = options[:content_provider_id]
     @title = options[:title]
     @url = options[:url]
     @short_description = options[:short_description]
@@ -15,17 +16,15 @@ class Material
     @scraper_record = true    
     @remote_created_date = options[:remote_created_date]
     @remote_updated_date = options[:remote_updated_date]
-    @package_ids = options[:package_ids] #Array
-    @content_provider_id = options[:content_provider_id]
-    @content_provider = options[:content_provider]
-    @keywords = options[:keywords] #Array
-    @scientific_topic_names = options[:scientific_topic_names] #Array
-    @licence = options[:licence]
-    @difficulty_level = options[:difficulty_level]
-    @contributors = options[:contributors] #Array
-    @authors = options[:authors] #Array
-    @target_audience = options[:target_audience] #Array
-    @node_ids = options[:node_ids] #Array
+    @package_ids = [options[:package_ids]].flatten #Array
+    @keywords = [options[:keywords]].flatten #Array
+    @scientific_topic_names = [options[:scientific_topic_names]].flatten #Array
+    @licence = options[:licence] || 'notspecified'
+    @difficulty_level = options[:difficulty_level] || 'notspecified'
+    @contributors = [options[:contributors]].flatten #Array
+    @authors = [options[:authors]].flatten #Array
+    @target_audience = [options[:target_audience]].flatten #Array
+    @node_ids = [options[:node_ids]].flatten #Array
     @external_resources_attributes = options[:external_resources_attributes] # Hash = [:id => x, :url => y, :title => z, :_destroy => true]
   end
 
