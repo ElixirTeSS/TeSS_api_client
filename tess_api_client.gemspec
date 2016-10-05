@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'httparty', '~> 0.13'
   s.add_runtime_dependency 'net', '~> 0.3'
   s.add_runtime_dependency 'linkeddata', '~> 2.0'
+  s.add_runtime_dependency 'inifile', '~> 3.0.0'
 end
