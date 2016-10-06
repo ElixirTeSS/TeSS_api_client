@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/materials/check_exists.json
+    body:
+      encoding: UTF-8
+      string: '{"content_provider_id":1,"title":"An novel material","url":"http://example.com/materials/123","last_scraped":"2016-10-06
+        15:45:27 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"keywords":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 6a2669ad-3824-4235-82df-83b97607a723
+      X-Runtime:
+      - '0.049000'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Thu, 06 Oct 2016 14:45:28 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 14:45:28 GMT
+recorded_with: VCR 3.0.3

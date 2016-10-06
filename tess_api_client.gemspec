@@ -15,4 +15,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'linkeddata', '~> 2.0'
   s.add_runtime_dependency 'inifile', '~> 3.0.0'
   s.add_development_dependency 'test-unit', '~> 3.2.1'
+  s.add_development_dependency 'vcr', '~> 3.0.3'
 end

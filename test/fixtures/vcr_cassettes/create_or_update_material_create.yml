@@ -1,0 +1,104 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/materials/check_exists.json
+    body:
+      encoding: UTF-8
+      string: '{"content_provider_id":1,"title":"An novel material","short_description":"a","url":"http://example.com/materials/123","last_scraped":"2016-10-06
+        16:17:18 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"keywords":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - e120facc-9880-4ded-8441-432dad69a8e8
+      X-Runtime:
+      - '0.041966'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Thu, 06 Oct 2016 15:17:18 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 15:17:18 GMT
+- request:
+    method: post
+    uri: http://localhost:3001/materials.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","material":{"content_provider_id":1,"title":"An
+        novel material","short_description":"a","url":"http://example.com/materials/123","last_scraped":"2016-10-06
+        16:17:18 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"keywords":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: 'Created '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/materials/an-novel-material
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"7001e5ca30bdea6ec1305a6ecadc1223"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e41a3e2b-aace-40f9-8dab-c5497152dc8e
+      X-Runtime:
+      - '0.201873'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Thu, 06 Oct 2016 15:17:19 GMT
+      Content-Length:
+      - '437'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":172,"title":"An novel material","url":"http://example.com/materials/123","short_description":"a","doi":null,"remote_updated_date":null,"remote_created_date":null,"created_at":"2016-10-06T15:17:18.944Z","updated_at":"2016-10-06T15:17:18.944Z","package_ids":[],"content_provider_id":1,"keywords":[],"scientific_topics":[],"licence":"notspecified","difficulty_level":"notspecified","contributors":[],"authors":[],"target_audience":[]}'
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 15:17:19 GMT
+recorded_with: VCR 3.0.3

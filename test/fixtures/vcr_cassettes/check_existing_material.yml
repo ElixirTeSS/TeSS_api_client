@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/materials/check_exists.json
+    body:
+      encoding: UTF-8
+      string: '{"content_provider_id":1,"title":"An existing material","url":"http://example.com/materials/existing","keywords":["dog","cat"],"short_description":"a","licence":"GPL-3.0","last_scraped":"2016-10-06
+        15:56:06 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/materials/an-existing-material
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"d23c0a7f1cdb3e43571a0b598c384d98"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 47fb52e8-b3ad-442b-b1d2-7c894e76f3ff
+      X-Runtime:
+      - '0.031272'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Thu, 06 Oct 2016 14:56:06 GMT
+      Content-Length:
+      - '451'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":171,"title":"An existing material","url":"http://example.com/materials/existing","short_description":"a","doi":null,"remote_updated_date":null,"remote_created_date":null,"created_at":"2016-10-06T14:56:06.609Z","updated_at":"2016-10-06T14:56:06.609Z","package_ids":[],"content_provider_id":1,"keywords":["dog","cat"],"scientific_topics":[],"licence":"GPL-3.0","difficulty_level":"notspecified","contributors":[],"authors":[],"target_audience":[]}'
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 14:56:06 GMT
+recorded_with: VCR 3.0.3

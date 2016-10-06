@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: http://localhost:3001/materials/170.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","material":{"id":170,"title":"Adjusted
+        title","keywords":["bear"],"last_scraped":"2016-10-06 16:06:16 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/materials/a-new-material
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"da91c60cebe356c25030a9b38a672991"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - b989cf9f-3d9c-4389-8f25-ab605aa619b5
+      X-Runtime:
+      - '0.465519'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Thu, 06 Oct 2016 15:06:16 GMT
+      Content-Length:
+      - '457'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":170,"title":"Adjusted title","url":"http://example.com/materials/789","short_description":"A
+        cool material","doi":null,"remote_updated_date":null,"remote_created_date":"2016-08-10","created_at":"2016-10-06T14:40:56.006Z","updated_at":"2016-10-06T15:06:16.237Z","package_ids":[],"content_provider_id":1,"keywords":["bear"],"scientific_topics":[],"licence":"GPL-3.0","difficulty_level":"notspecified","contributors":[],"authors":[],"target_audience":[]}'
+    http_version: 
+  recorded_at: Thu, 06 Oct 2016 15:06:16 GMT
+recorded_with: VCR 3.0.3

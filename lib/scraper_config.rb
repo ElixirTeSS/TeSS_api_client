@@ -1,6 +1,12 @@
 class ScraperConfig
 
+  def self.test_settings= settings
+    @@test_settings = settings
+  end
+
   def self.get_config
+    return @@test_settings if @@test_settings
+
     host, port, protocol, user_email, user_token = nil
     myini = IniFile.load('../uploader_config.txt')
 
