@@ -1,15 +1,20 @@
 class Resource
 
   def initialize(params = {})
-    @params = params.with_indifferent_access
-
-    @params.each do |attr, value|
+    params.each do |attr, value|
       self.send("#{attr}=", value)
     end
   end
 
   def dump
-    @params
+    hash = {}
+
+    self.instance_variables.each do |var|
+      varname = var.to_s.gsub(/@/,'')
+      hash[varname] = self.instance_variable_get(var)
+    end
+
+    hash
   end
 
   def to_json
@@ -17,7 +22,7 @@ class Resource
   end
 
   def [](var)
-    @params[var]
+    self.instance_variable_get('@' + var)
   end
 
 end

@@ -126,6 +126,18 @@ class MaterialTest < Test::Unit::TestCase
     m.external_resources_attributes = [{ title: 'Better resource', url: 'http://www.example.com/resources/4'}]
     assert_equal 'Better resource', m.external_resources_attributes.first[:title]
     assert_equal 'http://www.example.com/resources/4', m.external_resources_attributes.first[:url]
+
+    dump = m.dump
+    parsed_json = JSON.parse(m.to_json)
+
+    [:id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
+     :remote_created_date,  :remote_updated_date, :package_ids, :content_provider_id,
+     :keywords, :scientific_topic_names, :licence, :difficulty_level,
+     :contributors, :authors, :target_audience, :node_ids].each do |attr|
+      assert_equal m.send(attr), m[attr.to_s], "Unexpected value of '#{attr}' for material when using []"
+      assert_equal m.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for material in hash dump"
+      assert_equal m.send(attr).to_s, parsed_json[attr.to_s].to_s, "Unexpected value of '#{attr}' for material in JSON"
+    end
   end
 
   test 'can dump material as hash' do

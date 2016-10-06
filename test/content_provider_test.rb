@@ -54,6 +54,15 @@ class ContentProviderTest < Test::Unit::TestCase
     assert_equal ['cat', 'dog'], c.keywords
     c.keywords = ['hamster']
     assert_equal ['hamster'], c.keywords
+
+    dump = c.dump
+    parsed_json = JSON.parse(c.to_json)
+
+    [:title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords].each do |attr|
+      assert_equal c.send(attr), c[attr.to_s], "Unexpected value of '#{attr}' for content provider when using []"
+      assert_equal c.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for content provider in hash dump"
+      assert_equal c.send(attr).to_s, parsed_json[attr.to_s].to_s, "Unexpected value of '#{attr}' for content provider in JSON"
+    end
   end
 
   test 'can dump content provider as hash' do

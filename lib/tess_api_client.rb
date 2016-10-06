@@ -17,5 +17,4 @@ class TessApi
   require 'open-uri'
   require 'digest/sha1'
   require 'rdf/rdfa'
-  require 'active_support/core_ext/hash'
 end
