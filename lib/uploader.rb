@@ -1,30 +1,27 @@
 class Uploader
 
   def self.check_material(material)
-    conf = ScraperConfig.get_config
     action = '/materials/check_exists.json'
     data_type = 'material'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = false
-    return self.do_upload(material,url,conf,auth,data_type,'post')
+
+    self.do_upload(material,auth,data_type,action,'post')
   end
 
   def self.create_material(material)
-    conf = ScraperConfig.get_config
     action = '/materials.json'
     data_type = 'material'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(material,url,conf,auth,data_type,'post')
+
+    self.do_upload(material,auth,data_type,action,'post')
   end
 
   def self.update_material(material)
-    conf = ScraperConfig.get_config
     action = "/materials/#{material['id']}.json"
     data_type = 'material'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(material,url,conf,auth,data_type,'put')
+
+    self.do_upload(material,auth,data_type,action,'put')
   end
 
   def self.create_or_update_material(material)
@@ -37,33 +34,32 @@ class Uploader
       result = Uploader.update_material(material)
       puts "Updated existing material '#{material.title}'"
     end
+
+    result
   end
- 
+
   def self.check_event(event)
-    conf = ScraperConfig.get_config
     action = '/events/check_exists.json'
     data_type = 'event'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = false
-    return self.do_upload(event,url,conf,auth,data_type,'post')
+
+    self.do_upload(event,auth,data_type,action,'post')
   end
 
   def self.create_event(event)
-    conf = ScraperConfig.get_config
     action = '/events.json'
     data_type = 'event'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(event,url,conf,auth,data_type,'post')
+
+    self.do_upload(event,auth,data_type,action,'post')
   end
 
   def self.update_event(event)
-    conf = ScraperConfig.get_config
     action = "/events/#{event['id']}.json"
     data_type = 'event'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(event,url,conf,auth,data_type,'put')
+
+    self.do_upload(event,auth,data_type,action,'put')
   end
 
   def self.create_or_update_event(event)
@@ -76,35 +72,34 @@ class Uploader
       result = Uploader.update_event(event)
       puts "Updated existing event '#{event.title}'"
     end
+
+    result
   end
 
 
   def self.check_content_provider(data)
-    conf = ScraperConfig.get_config
     action = '/content_providers/check_exists.json'
     data_type = 'content_provider'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = false
-    return self.do_upload(data,url,conf,auth,data_type,'post')
+
+    self.do_upload(data,auth,data_type,action,'post')
   end
 
   def self.create_content_provider(data)
-    conf = ScraperConfig.get_config
     action = '/content_providers.json'
     data_type = 'content_provider'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(data,url,conf,auth,data_type,'post')
+
+    self.do_upload(data,auth,data_type,action,'post')
   end
 
   def self.update_content_provider(data)
     puts "Updating Content Provider #{data.id} - #{data.title}"
-    conf = ScraperConfig.get_config
     action = "/content_providers/#{data['id']}.json"
     data_type = 'content_provider'
-    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     auth = true
-    return self.do_upload(data,url,conf,auth,data_type,'put')
+
+    self.do_upload(data,auth,data_type,action,'put')
   end
 
   def self.create_or_update_content_provider(content_provider)
@@ -118,16 +113,16 @@ class Uploader
   end
 
   def self.get_content_provider_id(cp_name)
-    conf = ScraperConfig.get_config
     content_provider_url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + "/content_providers/#{cp_name}.json"
     HTTParty::Basement.default_options.update(verify: false)
     response = HTTParty.get(content_provider_url)
-    return JSON.parse(response.body)['id']
+
+    JSON.parse(response.body)['id']
   end
 
-
-
-  def self.do_upload(data,url,conf,auth,data_type,method)
+  def self.do_upload(data, auth, data_type, action, method)
+    conf = ScraperConfig.get_config
+    url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
     # process data to json for uploading
 
     user_email = conf['user_email']
@@ -141,7 +136,7 @@ class Uploader
     # the proper auth details added.
     if auth
       payload = {:user_email => user_email,
-                :user_token => user_token,
+                 :user_token => user_token,
                  data_type.to_sym => data.dump
       }.to_json
     else
@@ -179,7 +174,5 @@ class Uploader
     created_record = JSON.parse(res.body) rescue {}
     return created_record
   end
-
-
 
 end
