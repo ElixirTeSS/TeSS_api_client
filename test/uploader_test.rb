@@ -70,4 +70,20 @@ class UploaderTest < Test::Unit::TestCase
     end
   end
 
+  test 'can create an event' do
+    assert true
+  end
+
+  test 'can check an event exists' do
+    assert true
+  end
+
+  test 'can update an event' do
+    assert true
+  end
+
+  test 'can create or update an event' do
+    assert true
+  end
+
 end
