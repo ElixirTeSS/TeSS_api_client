@@ -1,0 +1,108 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/events/check_exists.json
+    body:
+      encoding: UTF-8
+      string: '{"content_provider_id":1,"title":"Cutting-edge Event","url":"http://example.com/events/cutting-edge","description":"Possibly
+        doesn''t exist yet","venue":"A place","keywords":["novel"],"latitude":53.467324,"longitude":-2.234101,"last_scraped":"2016-10-07
+        11:19:20 +0100","scraper_record":true,"start":"2016-10-13","end":"2016-10-15"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 28ac9244-2ca0-4379-a086-9e0fe4f40d61
+      X-Runtime:
+      - '0.019359'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 07 Oct 2016 10:19:20 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 10:19:20 GMT
+- request:
+    method: post
+    uri: http://localhost:3001/events.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","event":{"content_provider_id":1,"title":"Cutting-edge
+        Event","url":"http://example.com/events/cutting-edge","description":"Possibly
+        doesn''t exist yet","venue":"A place","keywords":["novel"],"latitude":53.467324,"longitude":-2.234101,"last_scraped":"2016-10-07
+        11:19:20 +0100","scraper_record":true,"start":"2016-10-13","end":"2016-10-15"}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: 'Created '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/events/cutting-edge-event
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"bcb80c5873594cf429195192c38b0546"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - bcf12440-9f67-4a81-ba88-fe10ffc7400d
+      X-Runtime:
+      - '0.145631'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 07 Oct 2016 10:19:20 GMT
+      Content-Length:
+      - '599'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":26,"title":"Cutting-edge Event","subtitle":null,"url":"http://example.com/events/cutting-edge","organizer":null,"host_institutions":[],"scientific_topics":[],"description":"Possibly
+        doesn''t exist yet","event_types":[],"start":"2016-10-13T00:00:00.000Z","end":"2016-10-15T00:00:00.000Z","sponsor":null,"venue":"A
+        place","city":null,"county":null,"country":null,"postcode":null,"latitude":"53.467324","longitude":"-2.234101","created_at":"2016-10-07T10:19:20.841Z","updated_at":"2016-10-07T10:19:20.841Z","target_audience":[],"eligibility":[],"capacity":null,"contact":null,"keywords":["novel"]}'
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 10:19:20 GMT
+recorded_with: VCR 3.0.3

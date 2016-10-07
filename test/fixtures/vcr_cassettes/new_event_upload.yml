@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/events.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","event":{"content_provider_id":1,"title":"A
+        new event","url":"http://example.com/events/789","description":"A cool event","venue":"A
+        cool place","keywords":["dog","cat"],"latitude":53.467324,"longitude":-2.234101,"last_scraped":"2016-10-07
+        09:50:55 +0100","scraper_record":true,"start":"2016-10-10","end":"2016-10-12"}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: 'Created '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/events/a-new-event
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"1a1a132441b25103892c7e57c8dbd756"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e2c5fece-24c5-4003-af12-568257bf6673
+      X-Runtime:
+      - '0.278422'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 07 Oct 2016 08:50:56 GMT
+      Content-Length:
+      - '484'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":24,"title":"A new event","subtitle":null,"url":"http://example.com/events/789","organizer":null,"host_institutions":[],"scientific_topics":[],"description":"A
+        cool event","event_types":[],"start":"2016-10-10T00:00:00.000Z","end":"2016-10-12T00:00:00.000Z","sponsor":null,"venue":"A
+        cool place","city":null,"county":null,"country":null,"postcode":null,"latitude":"53.467324","longitude":"-2.234101","created_at":"2016-10-07T08:50:55.931Z","updated_at":"2016-10-07T08:50:55.931Z"}'
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 08:50:56 GMT
+recorded_with: VCR 3.0.3

@@ -3,32 +3,90 @@ require 'test_helper'
 class UploaderTest < Test::Unit::TestCase
 
   setup do
-    @new_material = Material.new({ content_provider_id: 1,
-                                   title: 'A new material',
-                                   url: 'http://example.com/materials/789',
-                                   short_description: 'A cool material',
-                                   long_description: 'A cooooooool material',
-                                   remote_created_date: '2016-08-10',
-                                   keywords: ['dog', 'cat'],
-                                   licence: 'GPL-3.0' })
+    @new_material = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'A new material',
+            url: 'http://example.com/materials/789',
+            short_description: 'A cool material',
+            long_description: 'A cooooooool material',
+            remote_created_date: '2016-08-10',
+            keywords: ['dog', 'cat'],
+            licence: 'GPL-3.0'
+        })
 
-    @existing_material = Material.new({ content_provider_id: 1,
-                                        title: 'An existing material',
-                                        url: 'http://example.com/materials/existing',
-                                        keywords: ['dog', 'cat'],
-                                        short_description: 'a',
-                                        licence: 'GPL-3.0' })
+    @existing_material = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'An existing material',
+            url: 'http://example.com/materials/existing',
+            keywords: ['dog', 'cat'],
+            short_description: 'a',
+            licence: 'GPL-3.0'
+        })
 
-    @non_existing_material = Material.new({ content_provider_id: 1,
-                                            title: 'An novel material',
-                                            short_description: 'a',
-                                            url: 'http://example.com/materials/123' })
+    @non_existing_material = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'An novel material',
+            short_description: 'a',
+            url: 'http://example.com/materials/123'
+        })
+
+    @material_to_be_updated = Material.new(
+        {
+            id: 170,
+            title: 'Adjusted title',
+            keywords: ['bear']
+        })
+
+    @new_event = Event.new(
+        { content_provider_id: 1,
+          title: 'A new event',
+          url: 'http://example.com/events/789',
+          description: 'A cool event',
+          start_date: '2016-10-10',
+          end_date: '2016-10-12',
+          venue: 'A cool place',
+          keywords: ['dog', 'cat'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+
+    @existing_event = Event.new(
+        { content_provider_id: 1,
+          title: 'An Existing Event',
+          url: 'http://example.com/events/existing',
+          description: 'Already exists',
+          start_date: '2016-10-11',
+          end_date: '2016-10-13',
+          venue: 'A place',
+          keywords: ['existing'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+    @non_existing_event = Event.new(
+        { content_provider_id: 1,
+          title: 'Cutting-edge Event',
+          url: 'http://example.com/events/cutting-edge',
+          description: "Possibly doesn't exist yet",
+          start_date: '2016-10-13',
+          end_date: '2016-10-15',
+          venue: 'A place',
+          keywords: ['novel'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+
+    @event_to_be_updated = Event.new(
+        { id: 24,
+          title: 'Rad, new title',
+          keywords: ['snake']
+        })
   end
 
   test 'can create a material' do
     VCR.use_cassette('new_material_upload') do
       res = Uploader.create_material(@new_material)
       assert res['id'].to_i > 0
+      assert_equal 'A new material', res['title']
     end
   end
 
@@ -46,7 +104,7 @@ class UploaderTest < Test::Unit::TestCase
 
   test 'can update a material' do
     VCR.use_cassette('material_update') do
-      res = Uploader.update_material(Material.new({ id: 170, title: 'Adjusted title', keywords: ['bear'] }))
+      res = Uploader.update_material(@material_to_be_updated)
       assert_equal 'Adjusted title', res['title']
       assert_equal ['bear'], res['keywords']
     end
@@ -71,19 +129,49 @@ class UploaderTest < Test::Unit::TestCase
   end
 
   test 'can create an event' do
-    assert true
+    VCR.use_cassette('new_event_upload') do
+      res = Uploader.create_event(@new_event)
+      assert res['id'].to_i > 0
+      assert_equal 'A new event', res['title']
+    end
   end
 
   test 'can check an event exists' do
-    assert true
+    VCR.use_cassette('check_existing_event') do
+      res = Uploader.check_event(@existing_event)
+      assert_not_nil res['id']
+    end
+
+    VCR.use_cassette('check_non_existing_event') do
+      res = Uploader.check_event(@non_existing_event)
+      assert_nil res['id']
+    end
   end
 
   test 'can update an event' do
-    assert true
+    VCR.use_cassette('event_update') do
+      res = Uploader.update_event(@event_to_be_updated)
+      assert_equal 'Rad, new title', res['title']
+      assert_equal ['snake'], res['keywords']
+    end
   end
 
   test 'can create or update an event' do
-    assert true
+    id = nil
+
+    VCR.use_cassette('create_or_update_event_create') do
+      res = Uploader.create_or_update_event(@non_existing_event)
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_event.title = 'Changed title'
+    assert_nil @non_existing_event.id, "ID should be nil, as we are relying on TeSS' check_exists method to find the existing event"
+    VCR.use_cassette('create_or_update_event_update') do
+      res = Uploader.create_or_update_event(@non_existing_event)
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
   end
 
 end
