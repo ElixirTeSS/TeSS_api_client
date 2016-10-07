@@ -1,0 +1,102 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/content_providers/check_exists.json
+    body:
+      encoding: UTF-8
+      string: '{"title":"Fresh-off-the-grill Content","url":"http://example.com/content_providers/bbq","keywords":["bbq","steak"],"content_provider_type":"Organisation","node_name":null}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: 'OK '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - dc8c1488-511d-4fe5-a248-157a3af0eb97
+      X-Runtime:
+      - '0.022841'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 07 Oct 2016 11:01:36 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 11:01:36 GMT
+- request:
+    method: post
+    uri: http://localhost:3001/content_providers.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","content_provider":{"title":"Fresh-off-the-grill
+        Content","url":"http://example.com/content_providers/bbq","keywords":["bbq","steak"],"content_provider_type":"Organisation","node_name":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 201
+      message: 'Created '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Location:
+      - http://localhost:3001/content_providers/fresh-off-the-grill-content
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"69e73f688b3d998ebfb1138db0cf882c"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - a5d65afa-5d84-42ab-926d-02ed9e48eb58
+      X-Runtime:
+      - '0.149654'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 07 Oct 2016 11:01:36 GMT
+      Content-Length:
+      - '238'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"id":9,"title":"Fresh-off-the-grill Content","image_url":null,"description":null,"url":"http://example.com/content_providers/bbq","created_at":"2016-10-07T11:01:36.321Z","updated_at":"2016-10-07T11:01:36.321Z","keywords":["bbq","steak"]}'
+    http_version: 
+  recorded_at: Fri, 07 Oct 2016 11:01:36 GMT
+recorded_with: VCR 3.0.3

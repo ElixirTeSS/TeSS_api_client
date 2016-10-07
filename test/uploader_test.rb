@@ -80,6 +80,29 @@ class UploaderTest < Test::Unit::TestCase
           title: 'Rad, new title',
           keywords: ['snake']
         })
+
+    @new_content_provider = ContentProvider.new(
+        { title: 'Provider of Content',
+          url: 'http://example.com/content_providers/789',
+          keywords: ['content', 'wow']
+        })
+
+    @existing_content_provider = ContentProvider.new(
+        { title: 'Now is the winter of our content',
+          url: 'http://example.com/content_providers/winter',
+        })
+
+    @non_existing_content_provider = ContentProvider.new(
+        { title: 'Fresh-off-the-grill Content',
+          url: 'http://example.com/content_providers/bbq',
+          keywords: ['bbq', 'steak']
+        })
+
+    @content_provider_to_be_updated = ContentProvider.new(
+        { id: 8,
+          title: 'Re-branded Content Provider',
+          keywords: ['hip', '#hashtag']
+        })
   end
 
   test 'can create a material' do
@@ -169,6 +192,53 @@ class UploaderTest < Test::Unit::TestCase
     assert_nil @non_existing_event.id, "ID should be nil, as we are relying on TeSS' check_exists method to find the existing event"
     VCR.use_cassette('create_or_update_event_update') do
       res = Uploader.create_or_update_event(@non_existing_event)
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
+  end
+
+  test 'can create a content provider' do
+    VCR.use_cassette('new_content_provider_upload') do
+      res = Uploader.create_content_provider(@new_content_provider)
+      assert res['id'].to_i > 0
+      assert_equal 'Provider of Content', res['title']
+    end
+  end
+
+  test 'can check an content provider exists' do
+    VCR.use_cassette('check_existing_content_provider') do
+      res = Uploader.check_content_provider(@existing_content_provider)
+      assert_not_nil res['id']
+    end
+
+    VCR.use_cassette('check_non_existing_content_provider') do
+      res = Uploader.check_content_provider(@non_existing_content_provider)
+      assert_nil res['id']
+    end
+  end
+
+  test 'can update an content provider' do
+    VCR.use_cassette('content_provider_update') do
+      res = Uploader.update_content_provider(@content_provider_to_be_updated)
+      assert_equal 'Re-branded Content Provider', res['title']
+      assert_includes res['keywords'], 'hip'
+      assert_includes res['keywords'], '#hashtag'
+    end
+  end
+
+  test 'can create or update an content provider' do
+    id = nil
+
+    VCR.use_cassette('create_or_update_content_provider_create') do
+      res = Uploader.create_or_update_content_provider(@non_existing_content_provider)
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_content_provider.title = 'Changed title'
+    assert_nil @non_existing_content_provider.id, "ID should be nil, as we are relying on TeSS' check_exists method to find the existing content provider"
+    VCR.use_cassette('create_or_update_content_provider_update') do
+      res = Uploader.create_or_update_content_provider(@non_existing_content_provider)
       assert_equal id, res['id']
       assert_equal 'Changed title', res['title']
     end
