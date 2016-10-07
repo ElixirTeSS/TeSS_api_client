@@ -141,7 +141,7 @@ class MaterialTest < Test::Unit::TestCase
   end
 
   test 'can dump material as hash' do
-    hash = new_material.dump
+    hash = @material.dump
 
     assert_equal 123, hash['content_provider_id']
     assert_include hash['keywords'], 'dog'
@@ -151,7 +151,7 @@ class MaterialTest < Test::Unit::TestCase
 
 
   test 'can dump material as JSON' do
-    json = new_material.to_json
+    json = @material.to_json
     parsed = nil
 
     assert_nothing_raised do
@@ -162,20 +162,6 @@ class MaterialTest < Test::Unit::TestCase
     assert_include parsed['keywords'], 'dog'
     assert_equal parsed['remote_created_date'], '2016-08-10'
     assert_equal parsed['scraper_record'], true
-  end
-
-  private
-
-  def new_material
-    Material.new({ content_provider_id: 123,
-                   title: 'A new material',
-                   url: 'http://example.com/materials/789',
-                   short_description: 'A cool material',
-                   long_description: 'A cooooooool material',
-                   remote_created_date: '2016-08-10',
-                   keywords: ['dog', 'cat'],
-                   licence: 'GPL-3.0',
-                 })
   end
 
 end
