@@ -112,14 +112,6 @@ class Uploader
     end
   end
 
-  def self.get_content_provider_id(cp_name)
-    content_provider_url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + "/content_providers/#{cp_name}.json"
-    HTTParty::Basement.default_options.update(verify: false)
-    response = HTTParty.get(content_provider_url)
-
-    JSON.parse(response.body)['id']
-  end
-
   def self.do_upload(data, auth, data_type, action, method)
     conf = ScraperConfig.get_config
     url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
