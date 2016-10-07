@@ -2,6 +2,7 @@ class TessApi
   require 'inifile'
   require 'net/http'
   require 'net/https'
+  require 'api_resource'
   require 'resource'
   require 'material'
   require 'content_provider'

@@ -1,115 +1,64 @@
 class Uploader
 
+  # The following methods are just to maintain backwards compatibility
   def self.check_material(material)
-    action = '/materials/check_exists.json'
-    data_type = 'material'
-    auth = false
-
-    self.do_upload(material,auth,data_type,action,'post')
+    warn '[DEPRECATION] Uploader.check_material is deprecated, please use Material#exists? instead'
+    material.exists?
   end
 
   def self.create_material(material)
-    action = '/materials.json'
-    data_type = 'material'
-    auth = true
-
-    self.do_upload(material,auth,data_type,action,'post')
+    warn '[DEPRECATION] Uploader.create_material is deprecated, please use Material#create instead'
+    material.create
   end
 
   def self.update_material(material)
-    action = "/materials/#{material['id']}.json"
-    data_type = 'material'
-    auth = true
-
-    self.do_upload(material,auth,data_type,action,'put')
+    warn '[DEPRECATION] Uploader.update_material is deprecated, please use Material#update instead'
+    material.update
   end
 
   def self.create_or_update_material(material)
-    check = Uploader.check_material(material)
-    if check.empty?
-      result = Uploader.create_material(material)
-      puts "Created new material '#{material.title}'"
-    else
-      material.id = check['id']
-      result = Uploader.update_material(material)
-      puts "Updated existing material '#{material.title}'"
-    end
-
-    result
+    warn '[DEPRECATION] Uploader.create_or_update_material is deprecated, please use Material#create_or_update instead'
+    material.create_or_update
   end
 
   def self.check_event(event)
-    action = '/events/check_exists.json'
-    data_type = 'event'
-    auth = false
-
-    self.do_upload(event,auth,data_type,action,'post')
+    warn '[DEPRECATION] Uploader.check_event is deprecated, please use Event#exists? instead'
+    event.exists?
   end
 
   def self.create_event(event)
-    action = '/events.json'
-    data_type = 'event'
-    auth = true
-
-    self.do_upload(event,auth,data_type,action,'post')
+    warn '[DEPRECATION] Uploader.create_event is deprecated, please use Event#create instead'
+    event.create
   end
 
   def self.update_event(event)
-    action = "/events/#{event['id']}.json"
-    data_type = 'event'
-    auth = true
-
-    self.do_upload(event,auth,data_type,action,'put')
+    warn '[DEPRECATION] Uploader.update_event is deprecated, please use Event#update instead'
+    event.update
   end
 
   def self.create_or_update_event(event)
-    check = Uploader.check_event(event)
-    if check.empty?
-      result = Uploader.create_event(event)
-      puts "Created new event '#{event.title}'"
-    else
-      event.id = check['id']
-      result = Uploader.update_event(event)
-      puts "Updated existing event '#{event.title}'"
-    end
-
-    result
+    warn '[DEPRECATION] Uploader.create_or_update_event is deprecated, please use Event#create_or_update instead'
+    event.create_or_update
   end
 
-
-  def self.check_content_provider(data)
-    action = '/content_providers/check_exists.json'
-    data_type = 'content_provider'
-    auth = false
-
-    self.do_upload(data,auth,data_type,action,'post')
+  def self.check_content_provider(content_provider)
+    warn '[DEPRECATION] Uploader.check_content_provider is deprecated, please use ContentProvider#exists? instead'
+    content_provider.exists?
   end
 
-  def self.create_content_provider(data)
-    action = '/content_providers.json'
-    data_type = 'content_provider'
-    auth = true
-
-    self.do_upload(data,auth,data_type,action,'post')
+  def self.create_content_provider(content_provider)
+    warn '[DEPRECATION] Uploader.create_content_provider is deprecated, please use ContentProvider#create instead'
+    content_provider.create
   end
 
-  def self.update_content_provider(data)
-    puts "Updating Content Provider #{data.id} - #{data.title}"
-    action = "/content_providers/#{data['id']}.json"
-    data_type = 'content_provider'
-    auth = true
-
-    self.do_upload(data,auth,data_type,action,'put')
+  def self.update_content_provider(content_provider)
+    warn '[DEPRECATION] Uploader.update_content_provider is deprecated, please use ContentProvider#update instead'
+    content_provider.update
   end
 
   def self.create_or_update_content_provider(content_provider)
-    tess_cp = Uploader.check_content_provider(content_provider)
-    if (tess_cp and !tess_cp.empty?)
-      content_provider.id = tess_cp['id']
-      Uploader.update_content_provider(content_provider)
-    else
-      Uploader.create_content_provider(content_provider)
-    end
+    warn '[DEPRECATION] Uploader.create_or_update_content_provider is deprecated, please use ContentProvider#create_or_update instead'
+    content_provider.create_or_update
   end
 
   def self.do_upload(data, auth, data_type, action, method)

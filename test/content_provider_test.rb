@@ -3,17 +3,42 @@ require 'test_helper'
 class ContentProviderTest < Test::Unit::TestCase
 
   setup do
-    @content_provider = ContentProvider.new({ title: 'Provider of Content',
+    @content_provider = ContentProvider.new(
+        { title: 'Provider of Content',
                                               url: 'http://example.com/content_providers/789',
                                               keywords: ['cat', 'dog'] })
 
-    @content_provider_full = ContentProvider.new({ title: 'Kontent King',
+    @content_provider_full = ContentProvider.new(
+        { title: 'Kontent King',
                                                    url: 'http://example.com/content_providers/789',
                                                    image_url: 'http://example.com/images/content_p.png',
                                                    description: 'Hey!',
                                                    content_provider_type: 'anything?',
                                                    node: 'Francis',
                                                    keywords: ['cat', 'dog'] })
+
+    @content_provider_to_be_created = ContentProvider.new(
+        { title: 'Provider of Content',
+          url: 'http://example.com/content_providers/789',
+          keywords: ['content', 'wow']
+        })
+
+    @existing_content_provider = ContentProvider.new(
+        { title: 'Now is the winter of our content',
+          url: 'http://example.com/content_providers/winter',
+        })
+
+    @non_existing_content_provider = ContentProvider.new(
+        { title: 'Fresh-off-the-grill Content',
+          url: 'http://example.com/content_providers/bbq',
+          keywords: ['bbq', 'steak']
+        })
+
+    @content_provider_to_be_updated = ContentProvider.new(
+        { id: 8,
+          title: 'Re-branded Content Provider',
+          keywords: ['hip', '#hashtag']
+        })
   end
 
   test 'can initialize a content provider' do
@@ -87,12 +112,49 @@ class ContentProviderTest < Test::Unit::TestCase
     assert_equal parsed['content_provider_type'], ContentProvider::PROVIDER_TYPE[:ORGANISATION]
   end
 
-  private
 
-  def new_content_provider
-    ContentProvider.new({ title: 'Provider of Content',
-                          url: 'http://example.com/content_providers/789',
-                          keywords: ['cat', 'dog'] })
+  test 'can create a content provider' do
+    VCR.use_cassette('new_content_provider_upload') do
+      res = @content_provider_to_be_created.create
+      assert res['id'].to_i > 0
+      assert_equal 'Provider of Content', res['title']
+    end
   end
 
+  test 'can check an content provider exists' do
+    VCR.use_cassette('check_existing_content_provider') do
+      assert @existing_content_provider.exists?
+    end
+
+    VCR.use_cassette('check_non_existing_content_provider') do
+      refute @non_existing_content_provider.exists?
+    end
+  end
+
+  test 'can update an content provider' do
+    VCR.use_cassette('content_provider_update') do
+      res = @content_provider_to_be_updated.update
+      assert_equal 'Re-branded Content Provider', res['title']
+      assert_includes res['keywords'], 'hip'
+      assert_includes res['keywords'], '#hashtag'
+    end
+  end
+
+  test 'can create or update an content provider' do
+    id = nil
+
+    VCR.use_cassette('create_or_update_content_provider_create') do
+      res = @non_existing_content_provider.create_or_update
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_content_provider.title = 'Changed title'
+    VCR.use_cassette('create_or_update_content_provider_update') do
+      res = @non_existing_content_provider.create_or_update
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
+  end
+  
 end

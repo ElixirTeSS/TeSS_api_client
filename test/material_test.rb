@@ -31,6 +31,43 @@ class MaterialTest < Test::Unit::TestCase
                                     target_audience: ['guys', 'gals'],
                                     node_ids: [8,9],
                                     external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
+
+    @material_to_be_created = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'A new material',
+            url: 'http://example.com/materials/789',
+            short_description: 'A cool material',
+            long_description: 'A cooooooool material',
+            remote_created_date: '2016-08-10',
+            keywords: ['dog', 'cat'],
+            licence: 'GPL-3.0'
+        })
+
+    @existing_material = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'An existing material',
+            url: 'http://example.com/materials/existing',
+            keywords: ['dog', 'cat'],
+            short_description: 'a',
+            licence: 'GPL-3.0'
+        })
+
+    @non_existing_material = Material.new(
+        {
+            content_provider_id: 1,
+            title: 'An novel material',
+            short_description: 'a',
+            url: 'http://example.com/materials/123'
+        })
+
+    @material_to_be_updated = Material.new(
+        {
+            id: 170,
+            title: 'Adjusted title',
+            keywords: ['bear']
+        })
   end
 
   test 'can initialize a material' do
@@ -162,6 +199,50 @@ class MaterialTest < Test::Unit::TestCase
     assert_include parsed['keywords'], 'dog'
     assert_equal parsed['remote_created_date'], '2016-08-10'
     assert_equal parsed['scraper_record'], true
+  end
+
+
+  test 'can create a material' do
+    VCR.use_cassette('new_material_upload') do
+      res = @material_to_be_created.create
+      assert res['id'].to_i > 0
+      assert_equal 'A new material', res['title']
+    end
+  end
+
+  test 'can check a material exists' do
+    VCR.use_cassette('check_existing_material') do
+      assert @existing_material.exists?
+    end
+
+    VCR.use_cassette('check_non_existing_material') do
+      refute @non_existing_material.exists?
+    end
+  end
+
+  test 'can update a material' do
+    VCR.use_cassette('material_update') do
+      res = @material_to_be_updated.update
+      assert_equal 'Adjusted title', res['title']
+      assert_equal ['bear'], res['keywords']
+    end
+  end
+
+  test 'can create or update a material' do
+    id = nil
+
+    VCR.use_cassette('create_or_update_material_create') do
+      res = @non_existing_material.create_or_update
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_material.title = 'Changed title'
+    VCR.use_cassette('create_or_update_material_update') do
+      res = @non_existing_material.create_or_update
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
   end
 
 end

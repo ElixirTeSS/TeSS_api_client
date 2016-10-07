@@ -1,5 +1,15 @@
 class Event < Resource
 
+  include ApiResource
+
+  def self.data_type
+    'event'
+  end
+
+  def self.resource_path
+    'events'
+  end
+
   attr_accessor :id, :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
                 :scraper_record, :description, :scientific_topic_names, :event_types,
                 :keywords, :start, :end, :sponsor, :online, :for_profit, :venue,

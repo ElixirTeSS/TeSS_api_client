@@ -19,7 +19,8 @@ content_provider = ContentProvider.new(
     "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/2000px-Smiley.svg.png",
     "We're sharing our content with TeSS!"
     )
-content_provider = Uploader.create_or_update_content_provider(content_provider)
+    
+content_provider.create_or_update
 
 material = Material.new(title: 'How to use TeSS API',
                         url: 'http://mysite.org/tess_api',
@@ -31,7 +32,7 @@ material = Material.new(title: 'How to use TeSS API',
                         scientific_topic: ['Computational Biology'],
                         keywords: ['tutorial', 'TeSS', 'sharing'])
                           
-Uploader.create_or_update_material(upload_material)
+material.create
 ```
 
 If a website has schema.org content embedded in either RDFa or Microdata formats you can extract it easily. First convert it to RDF, and then use the RdfaExtractor library to parse it.

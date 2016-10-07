@@ -3,7 +3,8 @@ require 'test_helper'
 class EventTest < Test::Unit::TestCase
 
   setup do
-    @event = Event.new({ content_provider_id: 123,
+    @event = Event.new(
+        { content_provider_id: 123,
                          title: 'A new event',
                          url: 'http://example.com/events/789',
                          description: 'A cool event',
@@ -14,7 +15,8 @@ class EventTest < Test::Unit::TestCase
                          latitude: 65,
                          longitude: 65 })
 
-    @event_full = Event.new({ id: 1,
+    @event_full = Event.new(
+        { id: 1,
                               external_id: 456,
                               content_provider_id: 123,
                               title: 'Big Event',
@@ -46,6 +48,47 @@ class EventTest < Test::Unit::TestCase
                               contact: 'Bill Gates (bg@example.com)',
                               external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}]
                             })
+
+    @event_to_be_created = Event.new(
+        { content_provider_id: 1,
+          title: 'A new event',
+          url: 'http://example.com/events/789',
+          description: 'A cool event',
+          start_date: '2016-10-10',
+          end_date: '2016-10-12',
+          venue: 'A cool place',
+          keywords: ['dog', 'cat'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+
+    @existing_event = Event.new(
+        { content_provider_id: 1,
+          title: 'An Existing Event',
+          url: 'http://example.com/events/existing',
+          description: 'Already exists',
+          start_date: '2016-10-11',
+          end_date: '2016-10-13',
+          venue: 'A place',
+          keywords: ['existing'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+    @non_existing_event = Event.new(
+        { content_provider_id: 1,
+          title: 'Cutting-edge Event',
+          url: 'http://example.com/events/cutting-edge',
+          description: "Possibly doesn't exist yet",
+          start_date: '2016-10-13',
+          end_date: '2016-10-15',
+          venue: 'A place',
+          keywords: ['novel'],
+          latitude: 53.467324,
+          longitude: -2.234101 })
+
+    @event_to_be_updated = Event.new(
+        { id: 24,
+          title: 'Rad, new title',
+          keywords: ['snake']
+        })
   end
 
   test 'can initialize an event' do
@@ -227,6 +270,50 @@ class EventTest < Test::Unit::TestCase
     assert_equal 123, parsed['content_provider_id']
     assert_include parsed['keywords'], 'dog'
     assert_include parsed['end'], '2016-08-12'
+  end
+
+
+  test 'can create an event' do
+    VCR.use_cassette('new_event_upload') do
+      res = @event_to_be_created.create
+      assert res['id'].to_i > 0
+      assert_equal 'A new event', res['title']
+    end
+  end
+
+  test 'can check an event exists' do
+    VCR.use_cassette('check_existing_event') do
+      assert @existing_event.exists?
+    end
+
+    VCR.use_cassette('check_non_existing_event') do
+      refute @non_existing_event.exists?
+    end
+  end
+
+  test 'can update an event' do
+    VCR.use_cassette('event_update') do
+      res = @event_to_be_updated.update
+      assert_equal 'Rad, new title', res['title']
+      assert_equal ['snake'], res['keywords']
+    end
+  end
+
+  test 'can create or update an event' do
+    id = nil
+
+    VCR.use_cassette('create_or_update_event_create') do
+      res = @non_existing_event.create_or_update
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_event.title = 'Changed title'
+    VCR.use_cassette('create_or_update_event_update') do
+      res = @non_existing_event.create_or_update
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
   end
 
 end

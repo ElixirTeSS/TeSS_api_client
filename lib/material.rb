@@ -1,5 +1,15 @@
 class Material < Resource
 
+  include ApiResource
+
+  def self.data_type
+    'material'
+  end
+
+  def self.resource_path
+    'materials'
+  end
+
   attr_accessor :id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
                 :remote_created_date,  :remote_updated_date, :package_ids, :content_provider_id,
                 :keywords, :scientific_topic_names, :licence, :difficulty_level,
