@@ -68,6 +68,37 @@ class MaterialTest < Test::Unit::TestCase
             title: 'Adjusted title',
             keywords: ['bear']
         })
+
+    @material_with_new_content_provider = Material.new(
+        {
+            content_provider: ContentProvider.new(
+                { title: 'Fresh-off-the-grill Content',
+                  url: 'http://example.com/content_providers/bbq',
+                  keywords: ['bbq', 'steak']
+                }),
+            title: 'A new material with an existing content provider',
+            url: 'http://example.com/materials/nmwecp',
+            short_description: 'A cool material',
+            long_description: 'A cooooooool material',
+            remote_created_date: '2016-08-10',
+            keywords: ['dog', 'cat'],
+            licence: 'GPL-3.0'
+        })
+
+    @material_with_existing_content_provider = Material.new(
+        {
+            content_provider: ContentProvider.new(
+                { title: 'Now is the winter of our content',
+                  url: 'http://example.com/content_providers/winter',
+                }),
+            title: 'A new material with a new content provider',
+            url: 'http://example.com/materials/nmwncp',
+            short_description: 'A cool material',
+            long_description: 'A cooooooool material',
+            remote_created_date: '2016-08-10',
+            keywords: ['dog', 'cat'],
+            licence: 'GPL-3.0'
+        })
   end
 
   test 'can initialize a material' do
@@ -186,7 +217,6 @@ class MaterialTest < Test::Unit::TestCase
     assert_equal hash['scraper_record'], true
   end
 
-
   test 'can dump material as JSON' do
     json = @material.to_json
     parsed = nil
@@ -200,7 +230,6 @@ class MaterialTest < Test::Unit::TestCase
     assert_equal parsed['remote_created_date'], '2016-08-10'
     assert_equal parsed['scraper_record'], true
   end
-
 
   test 'can create a material' do
     VCR.use_cassette('new_material_upload') do
@@ -242,6 +271,32 @@ class MaterialTest < Test::Unit::TestCase
       res = @non_existing_material.create_or_update
       assert_equal id, res['id']
       assert_equal 'Changed title', res['title']
+    end
+  end
+
+  test 'can create a content provider while creating material' do
+    VCR.use_cassette('check_non_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_create') do
+        VCR.use_cassette('create_new_material_with_new_content_provider') do
+          res = @material_with_new_content_provider.create
+          assert res['id'].to_i > 0
+          assert res.content_provider.id > 0
+          assert res.content_provider_id > 0
+        end
+      end
+    end
+  end
+
+  test 'does not duplicate existing content provider while creating material' do
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_update') do
+        VCR.use_cassette('create_new_material_with_existing_content_provider') do
+          res = @material_with_existing_content_provider.create
+          assert res['id'].to_i > 0
+          assert_equal 9, res.content_provider.id
+          assert_equal 9, res.content_provider_id
+        end
+      end
     end
   end
 

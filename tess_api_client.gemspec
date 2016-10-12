@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
                    'lib/content_provider.rb',
                    'lib/event.rb',
                    'lib/material.rb',
+                   'lib/has_content_provider.rb',
                    'lib/node.rb',
                    'lib/rdfa_extractor.rb',
                    'lib/resource.rb',

@@ -19,8 +19,6 @@ module ApiResource
     else
       create
     end
-
-    self
   end
 
   def exists?

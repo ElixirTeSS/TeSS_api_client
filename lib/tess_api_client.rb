@@ -3,6 +3,7 @@ class TessApi
   require 'net/http'
   require 'net/https'
   require 'api_resource'
+  require 'has_content_provider'
   require 'resource'
   require 'material'
   require 'content_provider'

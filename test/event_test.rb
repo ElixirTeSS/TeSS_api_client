@@ -89,6 +89,36 @@ class EventTest < Test::Unit::TestCase
           title: 'Rad, new title',
           keywords: ['snake']
         })
+
+
+    @event_with_new_content_provider = Event.new(
+        {
+            content_provider: ContentProvider.new(
+                { title: 'Fresh-off-the-grill Content',
+                  url: 'http://example.com/content_providers/bbq',
+                  keywords: ['bbq', 'steak']
+                }),
+            title: 'A new event with an existing content provider',
+            url: 'http://example.com/events/nmwecp',
+            start_date: '2016-10-10',
+            end_date: '2016-10-12',
+            venue: 'A cool place',
+            keywords: ['dog', 'cat']
+        })
+
+    @event_with_existing_content_provider = Event.new(
+        {
+            content_provider: ContentProvider.new(
+                { title: 'Now is the winter of our content',
+                  url: 'http://example.com/content_providers/winter',
+                }),
+            title: 'A new event with a new content provider',
+            url: 'http://example.com/events/nmwncp',
+            start_date: '2016-10-10',
+            end_date: '2016-10-12',
+            venue: 'A very cool place',
+            keywords: ['dog', 'cat']
+        })
   end
 
   test 'can initialize an event' do
@@ -313,6 +343,32 @@ class EventTest < Test::Unit::TestCase
       res = @non_existing_event.create_or_update
       assert_equal id, res['id']
       assert_equal 'Changed title', res['title']
+    end
+  end
+
+  test 'can create a content provider while creating event' do
+    VCR.use_cassette('check_non_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_create') do
+        VCR.use_cassette('create_new_event_with_new_content_provider') do
+          res = @event_with_new_content_provider.create
+          assert res['id'].to_i > 0
+          assert res.content_provider.id > 0
+          assert res.content_provider_id > 0
+        end
+      end
+    end
+  end
+
+  test 'does not duplicate existing content provider while creating event' do
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_update') do
+        VCR.use_cassette('create_new_event_with_existing_content_provider') do
+          res = @event_with_existing_content_provider.create
+          assert res['id'].to_i > 0
+          assert_equal 9, res.content_provider.id
+          assert_equal 9, res.content_provider_id
+        end
+      end
     end
   end
 

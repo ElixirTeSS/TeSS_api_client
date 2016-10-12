@@ -5,17 +5,17 @@ class ContentProviderTest < Test::Unit::TestCase
   setup do
     @content_provider = ContentProvider.new(
         { title: 'Provider of Content',
-                                              url: 'http://example.com/content_providers/789',
-                                              keywords: ['cat', 'dog'] })
+          url: 'http://example.com/content_providers/789',
+          keywords: ['cat', 'dog'] })
 
     @content_provider_full = ContentProvider.new(
         { title: 'Kontent King',
-                                                   url: 'http://example.com/content_providers/789',
-                                                   image_url: 'http://example.com/images/content_p.png',
-                                                   description: 'Hey!',
-                                                   content_provider_type: 'anything?',
-                                                   node: 'Francis',
-                                                   keywords: ['cat', 'dog'] })
+          url: 'http://example.com/content_providers/789',
+          image_url: 'http://example.com/images/content_p.png',
+          description: 'Hey!',
+          content_provider_type: 'anything?',
+          node: 'Francis',
+          keywords: ['cat', 'dog'] })
 
     @content_provider_to_be_created = ContentProvider.new(
         { title: 'Provider of Content',
