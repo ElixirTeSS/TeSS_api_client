@@ -1,14 +1,18 @@
 module ApiResource
 
+  attr_accessor :last_action
+
   def create
     response = Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}.json", 'post')
     self.id = response['id']
+    self.last_action = :create
 
     self
   end
 
   def update
     Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}/#{self.id}.json", 'put')
+    self.last_action = :update
 
     self
   end
