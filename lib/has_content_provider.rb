@@ -7,14 +7,13 @@ module HasContentProvider
   end
 
   def update
-    @content_provider.create_or_update if @content_provider
+    @content_provider.create_or_update if @content_provider && !content_provider_id
 
     super
   end
 
   def create
-    @content_provider.create_or_update if @content_provider
-    puts dump
+    @content_provider.create_or_update if @content_provider && !content_provider_id
 
     super
   end

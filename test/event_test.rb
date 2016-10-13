@@ -372,4 +372,26 @@ class EventTest < Test::Unit::TestCase
     end
   end
 
+  test 'does not create/update content provider while creating event if given ID' do
+    @event_with_existing_content_provider.content_provider = nil
+    @event_with_existing_content_provider.content_provider_id = 9
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_new_event_with_existing_content_provider') do
+        res = @event_with_existing_content_provider.create
+        assert res['id'].to_i > 0
+        assert_equal 9, res.content_provider_id
+      end
+    end
+
+    @event_with_existing_content_provider.content_provider = ContentProvider.new(id: 9)
+    @event_with_existing_content_provider.content_provider_id = nil
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_new_event_with_existing_content_provider') do
+        res = @event_with_existing_content_provider.create
+        assert res['id'].to_i > 0
+        assert_equal 9, res.content_provider_id
+      end
+    end
+  end
+
 end
