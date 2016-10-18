@@ -3,12 +3,12 @@ require 'test_helper'
 class ContentProviderTest < Test::Unit::TestCase
 
   setup do
-    @content_provider = ContentProvider.new(
+    @content_provider = Tess::API::ContentProvider.new(
         { title: 'Provider of Content',
           url: 'http://example.com/content_providers/789',
           keywords: ['cat', 'dog'] })
 
-    @content_provider_full = ContentProvider.new(
+    @content_provider_full = Tess::API::ContentProvider.new(
         { title: 'Kontent King',
           url: 'http://example.com/content_providers/789',
           image_url: 'http://example.com/images/content_p.png',
@@ -17,24 +17,24 @@ class ContentProviderTest < Test::Unit::TestCase
           node: 'Francis',
           keywords: ['cat', 'dog'] })
 
-    @content_provider_to_be_created = ContentProvider.new(
+    @content_provider_to_be_created = Tess::API::ContentProvider.new(
         { title: 'Provider of Content',
           url: 'http://example.com/content_providers/789',
           keywords: ['content', 'wow']
         })
 
-    @existing_content_provider = ContentProvider.new(
+    @existing_content_provider = Tess::API::ContentProvider.new(
         { title: 'Now is the winter of our content',
           url: 'http://example.com/content_providers/winter',
         })
 
-    @non_existing_content_provider = ContentProvider.new(
+    @non_existing_content_provider = Tess::API::ContentProvider.new(
         { title: 'Fresh-off-the-grill Content',
           url: 'http://example.com/content_providers/bbq',
           keywords: ['bbq', 'steak']
         })
 
-    @content_provider_to_be_updated = ContentProvider.new(
+    @content_provider_to_be_updated = Tess::API::ContentProvider.new(
         { id: 8,
           title: 'Re-branded Content Provider',
           keywords: ['hip', '#hashtag']
@@ -43,7 +43,7 @@ class ContentProviderTest < Test::Unit::TestCase
 
   test 'can initialize a content provider' do
     assert_nothing_raised do
-      ContentProvider.new({ title: 'Provider of Content',
+      Tess::API::ContentProvider.new({ title: 'Provider of Content',
                             url: 'http://example.com/content_providers/789',
                             keywords: ['cat', 'dog'] })
     end
@@ -69,12 +69,12 @@ class ContentProviderTest < Test::Unit::TestCase
     assert_equal 'What up, G?', c.description
 
     assert_equal 'anything?', c.content_provider_type
-    c.content_provider_type = ContentProvider::PROVIDER_TYPE[:PORTAL]
-    assert_equal ContentProvider::PROVIDER_TYPE[:PORTAL], c.content_provider_type
+    c.content_provider_type = Tess::API::ContentProvider::PROVIDER_TYPE[:PORTAL]
+    assert_equal Tess::API::ContentProvider::PROVIDER_TYPE[:PORTAL], c.content_provider_type
 
     assert_equal 'Francis', c.node_name
-    c.node_name = Node::NODE_NAMES[:CZ]
-    assert_equal Node::NODE_NAMES[:CZ], c.node_name
+    c.node_name = Tess::API::Node::NODE_NAMES[:CZ]
+    assert_equal Tess::API::Node::NODE_NAMES[:CZ], c.node_name
 
     assert_equal ['cat', 'dog'], c.keywords
     c.keywords = ['hamster']
@@ -95,7 +95,7 @@ class ContentProviderTest < Test::Unit::TestCase
 
     assert_equal 'Provider of Content', hash['title']
     assert_include hash['keywords'], 'dog'
-    assert_equal hash['content_provider_type'], ContentProvider::PROVIDER_TYPE[:ORGANISATION]
+    assert_equal hash['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:ORGANISATION]
   end
 
 
@@ -109,7 +109,7 @@ class ContentProviderTest < Test::Unit::TestCase
 
     assert_equal 'Provider of Content', parsed['title']
     assert_include parsed['keywords'], 'dog'
-    assert_equal parsed['content_provider_type'], ContentProvider::PROVIDER_TYPE[:ORGANISATION]
+    assert_equal parsed['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:ORGANISATION]
   end
 
 

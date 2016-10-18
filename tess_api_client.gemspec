@@ -7,16 +7,16 @@ Gem::Specification.new do |s|
   s.authors     = ['Milo Thurston','Niall Beard','Aleksandra Nenadic','Finn Bacall']
   s.email       = 'milo.thurston@oerc.ox.ac.uk'
   s.files       = ['lib/tess_api_client.rb',
-                   'lib/api_resource.rb',
-                   'lib/content_provider.rb',
-                   'lib/event.rb',
-                   'lib/material.rb',
-                   'lib/has_content_provider.rb',
-                   'lib/node.rb',
-                   'lib/rdfa_extractor.rb',
-                   'lib/resource.rb',
-                   'lib/scraper_config.rb',
-                   'lib/uploader.rb'
+                   'lib/tess/api/api_resource.rb',
+                   'lib/tess/api/content_provider.rb',
+                   'lib/tess/api/event.rb',
+                   'lib/tess/api/material.rb',
+                   'lib/tess/api/has_content_provider.rb',
+                   'lib/tess/api/node.rb',
+                   'lib/tess/api/rdfa_extractor.rb',
+                   'lib/tess/api/resource.rb',
+                   'lib/tess/api/scraper_config.rb',
+                   'lib/tess/api/uploader.rb'
   ]
   s.homepage    = 'https://github.com/ElixirUK/TeSS_api_client'
   s.license     = 'BSD'

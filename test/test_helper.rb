@@ -5,7 +5,7 @@ require 'test/unit'
 require 'vcr'
 require 'tess_api_client'
 
-ScraperConfig.test_settings = {
+Tess::API::ScraperConfig.test_settings = {
     'host' => 'localhost',
     'port' => '3001',
     'protocol' => 'http',

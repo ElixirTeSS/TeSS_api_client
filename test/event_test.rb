@@ -3,53 +3,53 @@ require 'test_helper'
 class EventTest < Test::Unit::TestCase
 
   setup do
-    @event = Event.new(
+    @event = Tess::API::Event.new(
         { content_provider_id: 123,
-                         title: 'A new event',
-                         url: 'http://example.com/events/789',
-                         description: 'A cool event',
-                         start_date: '2016-08-10',
-                         end_date: '2016-08-12',
-                         venue: 'A cool place',
-                         keywords: ['dog', 'cat'],
-                         latitude: 65,
-                         longitude: 65 })
+          title: 'A new event',
+          url: 'http://example.com/events/789',
+          description: 'A cool event',
+          start_date: '2016-08-10',
+          end_date: '2016-08-12',
+          venue: 'A cool place',
+          keywords: ['dog', 'cat'],
+          latitude: 65,
+          longitude: 65 })
 
-    @event_full = Event.new(
+    @event_full = Tess::API::Event.new(
         { id: 1,
-                              external_id: 456,
-                              content_provider_id: 123,
-                              title: 'Big Event',
-                              subtitle: 'Really big',
-                              url: 'http://example.com/events/abc',
-                              organizer: 'Org',
-                              description: 'Hello world',
-                              scientific_topic_names: ['topic1', 'topic2'],
-                              event_types: [Event::EVENT_TYPE[:awards_and_prizegivings]],
-                              keywords: ['abc'],
-                              start_date: '2016-10-04',
-                              end_date: '2016-10-05',
-                              sponsor: 'Bill Gates',
-                              online: true,
-                              for_profit: true,
-                              venue: 'A place',
-                              city: 'Manchester',
-                              county: 'Lancashire',
-                              country: 'United Kingdom',
-                              postcode: 'M13 9PL',
-                              latitude: 50,
-                              longitude: 40,
-                              package_ids: [1,2],
-                              node_ids: [3,4],
-                              target_audience: ['people'],
-                              eligibility: ['interested'],
-                              host_institutions: ['uni1', 'uni2'],
-                              capacity: 10,
-                              contact: 'Bill Gates (bg@example.com)',
-                              external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}]
-                            })
+          external_id: 456,
+          content_provider_id: 123,
+          title: 'Big Event',
+          subtitle: 'Really big',
+          url: 'http://example.com/events/abc',
+          organizer: 'Org',
+          description: 'Hello world',
+          scientific_topic_names: ['topic1', 'topic2'],
+          event_types: [Tess::API::Event::EVENT_TYPE[:awards_and_prizegivings]],
+          keywords: ['abc'],
+          start_date: '2016-10-04',
+          end_date: '2016-10-05',
+          sponsor: 'Bill Gates',
+          online: true,
+          for_profit: true,
+          venue: 'A place',
+          city: 'Manchester',
+          county: 'Lancashire',
+          country: 'United Kingdom',
+          postcode: 'M13 9PL',
+          latitude: 50,
+          longitude: 40,
+          package_ids: [1,2],
+          node_ids: [3,4],
+          target_audience: ['people'],
+          eligibility: ['interested'],
+          host_institutions: ['uni1', 'uni2'],
+          capacity: 10,
+          contact: 'Bill Gates (bg@example.com)',
+          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}]
+        })
 
-    @event_to_be_created = Event.new(
+    @event_to_be_created = Tess::API::Event.new(
         { content_provider_id: 1,
           title: 'A new event',
           url: 'http://example.com/events/789',
@@ -61,9 +61,9 @@ class EventTest < Test::Unit::TestCase
           latitude: 53.467324,
           longitude: -2.234101 })
 
-    @existing_event = Event.new(
+    @existing_event = Tess::API::Event.new(
         { content_provider_id: 1,
-          title: 'An Existing Event',
+          title: 'An Existing Tess::API::Event',
           url: 'http://example.com/events/existing',
           description: 'Already exists',
           start_date: '2016-10-11',
@@ -72,9 +72,9 @@ class EventTest < Test::Unit::TestCase
           keywords: ['existing'],
           latitude: 53.467324,
           longitude: -2.234101 })
-    @non_existing_event = Event.new(
+    @non_existing_event = Tess::API::Event.new(
         { content_provider_id: 1,
-          title: 'Cutting-edge Event',
+          title: 'Cutting-edge Tess::API::Event',
           url: 'http://example.com/events/cutting-edge',
           description: "Possibly doesn't exist yet",
           start_date: '2016-10-13',
@@ -84,16 +84,16 @@ class EventTest < Test::Unit::TestCase
           latitude: 53.467324,
           longitude: -2.234101 })
 
-    @event_to_be_updated = Event.new(
+    @event_to_be_updated = Tess::API::Event.new(
         { id: 24,
           title: 'Rad, new title',
           keywords: ['snake']
         })
 
 
-    @event_with_new_content_provider = Event.new(
+    @event_with_new_content_provider = Tess::API::Event.new(
         {
-            content_provider: ContentProvider.new(
+            content_provider: Tess::API::ContentProvider.new(
                 { title: 'Fresh-off-the-grill Content',
                   url: 'http://example.com/content_providers/bbq',
                   keywords: ['bbq', 'steak']
@@ -106,9 +106,9 @@ class EventTest < Test::Unit::TestCase
             keywords: ['dog', 'cat']
         })
 
-    @event_with_existing_content_provider = Event.new(
+    @event_with_existing_content_provider = Tess::API::Event.new(
         {
-            content_provider: ContentProvider.new(
+            content_provider: Tess::API::ContentProvider.new(
                 { title: 'Now is the winter of our content',
                   url: 'http://example.com/content_providers/winter',
                 }),
@@ -123,16 +123,16 @@ class EventTest < Test::Unit::TestCase
 
   test 'can initialize an event' do
     assert_nothing_raised do
-      Event.new({ content_provider_id: 123,
-                  title: 'A new event',
-                  url: 'http://example.com/events/789',
-                  description: 'A cool event',
-                  start_date: '2016-08-10',
-                  end_date: '2016-08-12',
-                  venue: 'A cool place',
-                  keywords: ['dog', 'cat'],
-                  latitude: 65,
-                  longitude: 65 })
+      Tess::API::Event.new({ content_provider_id: 123,
+                             title: 'A new event',
+                             url: 'http://example.com/events/789',
+                             description: 'A cool event',
+                             start_date: '2016-08-10',
+                             end_date: '2016-08-12',
+                             venue: 'A cool place',
+                             keywords: ['dog', 'cat'],
+                             latitude: 65,
+                             longitude: 65 })
     end
   end
 
@@ -175,9 +175,9 @@ class EventTest < Test::Unit::TestCase
     e.scientific_topic_names = ['topic3', 'topic4']
     assert_equal ['topic3', 'topic4'], e.scientific_topic_names
 
-    assert_equal [Event::EVENT_TYPE[:awards_and_prizegivings]], e.event_types
-    e.event_types = [Event::EVENT_TYPE[:meetings_and_conferences]]
-    assert_equal [Event::EVENT_TYPE[:meetings_and_conferences]], e.event_types
+    assert_equal [Tess::API::Event::EVENT_TYPE[:awards_and_prizegivings]], e.event_types
+    e.event_types = [Tess::API::Event::EVENT_TYPE[:meetings_and_conferences]]
+    assert_equal [Tess::API::Event::EVENT_TYPE[:meetings_and_conferences]], e.event_types
 
     assert_equal ['abc'], e.keywords
     e.keywords = ['fun']
@@ -383,7 +383,7 @@ class EventTest < Test::Unit::TestCase
       end
     end
 
-    @event_with_existing_content_provider.content_provider = ContentProvider.new(id: 9)
+    @event_with_existing_content_provider.content_provider = Tess::API::ContentProvider.new(id: 9)
     @event_with_existing_content_provider.content_provider_id = nil
     VCR.use_cassette('check_existing_content_provider') do
       VCR.use_cassette('create_new_event_with_existing_content_provider') do

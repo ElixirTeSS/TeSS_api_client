@@ -3,7 +3,7 @@ require 'test_helper'
 class MaterialTest < Test::Unit::TestCase
 
   setup do
-    @material = Material.new({ content_provider_id: 123,
+    @material = Tess::API::Material.new({ content_provider_id: 123,
                                title: 'A new material',
                                url: 'http://example.com/materials/789',
                                short_description: 'A cool material',
@@ -12,7 +12,7 @@ class MaterialTest < Test::Unit::TestCase
                                keywords: ['dog', 'cat'],
                                licence: 'GPL-3.0' })
 
-    @material_full = Material.new({ id: 1,
+    @material_full = Tess::API::Material.new({ id: 1,
                                     title: 'Interesting Material',
                                     url: 'http://example.com/materials/123',
                                     short_description: 'Super interesting',
@@ -32,7 +32,7 @@ class MaterialTest < Test::Unit::TestCase
                                     node_ids: [8,9],
                                     external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
 
-    @material_to_be_created = Material.new(
+    @material_to_be_created = Tess::API::Material.new(
         {
             content_provider_id: 1,
             title: 'A new material',
@@ -44,7 +44,7 @@ class MaterialTest < Test::Unit::TestCase
             licence: 'GPL-3.0'
         })
 
-    @existing_material = Material.new(
+    @existing_material = Tess::API::Material.new(
         {
             content_provider_id: 1,
             title: 'An existing material',
@@ -54,7 +54,7 @@ class MaterialTest < Test::Unit::TestCase
             licence: 'GPL-3.0'
         })
 
-    @non_existing_material = Material.new(
+    @non_existing_material = Tess::API::Material.new(
         {
             content_provider_id: 1,
             title: 'An novel material',
@@ -62,16 +62,16 @@ class MaterialTest < Test::Unit::TestCase
             url: 'http://example.com/materials/123'
         })
 
-    @material_to_be_updated = Material.new(
+    @material_to_be_updated = Tess::API::Material.new(
         {
             id: 170,
             title: 'Adjusted title',
             keywords: ['bear']
         })
 
-    @material_with_new_content_provider = Material.new(
+    @material_with_new_content_provider = Tess::API::Material.new(
         {
-            content_provider: ContentProvider.new(
+            content_provider: Tess::API::ContentProvider.new(
                 { title: 'Fresh-off-the-grill Content',
                   url: 'http://example.com/content_providers/bbq',
                   keywords: ['bbq', 'steak']
@@ -85,9 +85,9 @@ class MaterialTest < Test::Unit::TestCase
             licence: 'GPL-3.0'
         })
 
-    @material_with_existing_content_provider = Material.new(
+    @material_with_existing_content_provider = Tess::API::Material.new(
         {
-            content_provider: ContentProvider.new(
+            content_provider: Tess::API::ContentProvider.new(
                 { title: 'Now is the winter of our content',
                   url: 'http://example.com/content_providers/winter',
                 }),
@@ -103,7 +103,7 @@ class MaterialTest < Test::Unit::TestCase
 
   test 'can initialize a material' do
     assert_nothing_raised do
-      Material.new({ content_provider_id: 123,
+      Tess::API::Material.new({ content_provider_id: 123,
                      title: 'A new material',
                      url: 'http://example.com/materials/789',
                      short_description: 'A cool material',
@@ -311,7 +311,7 @@ class MaterialTest < Test::Unit::TestCase
       end
     end
 
-    @material_with_existing_content_provider.content_provider = ContentProvider.new(id: 9)
+    @material_with_existing_content_provider.content_provider = Tess::API::ContentProvider.new(id: 9)
     @material_with_existing_content_provider.content_provider_id = nil
     VCR.use_cassette('check_existing_content_provider') do
       VCR.use_cassette('create_new_material_with_existing_content_provider') do
