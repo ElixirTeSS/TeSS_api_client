@@ -5,11 +5,8 @@ module Tess
     require 'net/https'
     require 'json'
     require 'httparty'
-    require 'json/ld'
-    require 'nokogiri'
     require 'open-uri'
     require 'digest/sha1'
-    require 'rdf/rdfa'
 
     require 'tess/api/api_resource'
     require 'tess/api/has_content_provider'
@@ -20,6 +17,5 @@ module Tess
     require 'tess/api/node'
     require 'tess/api/uploader'
     require 'tess/api/scraper_config'
-    require 'tess/api/rdfa_extractor'
   end
 end

@@ -13,7 +13,6 @@ Gem::Specification.new do |s|
                    'lib/tess/api/material.rb',
                    'lib/tess/api/has_content_provider.rb',
                    'lib/tess/api/node.rb',
-                   'lib/tess/api/rdfa_extractor.rb',
                    'lib/tess/api/resource.rb',
                    'lib/tess/api/scraper_config.rb',
                    'lib/tess/api/uploader.rb'
@@ -23,10 +22,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'json', '~> 1.8'
   s.add_runtime_dependency 'httparty', '~> 0.13'
   s.add_runtime_dependency 'net', '~> 0.3'
-  s.add_runtime_dependency 'linkeddata', '~> 2.0'
   s.add_runtime_dependency 'inifile', '~> 3.0.0'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'test-unit', '~> 3.2.1'
+  s.add_development_dependency 'webmock', '~> 1.24.6'
   s.add_development_dependency 'vcr', '~> 3.0.3'
   s.add_development_dependency 'simplecov'
 end
