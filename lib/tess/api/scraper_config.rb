@@ -10,7 +10,7 @@ module Tess
         return @@test_settings if @@test_settings
 
         host, port, protocol, user_email, user_token = nil
-        myini = IniFile.load('../uploader_config.txt')
+        myini = self.load_config
 
         unless myini
           raise "Can't open config file!"
@@ -36,11 +36,15 @@ module Tess
       end
 
       def self.debug?
-        IniFile.load('../uploader_config.txt')['Main']['debug'] || false
+        (self.load_config['Main'] && self.load_config['Main']['debug'])
       end
 
       def self.google_api_key
-        IniFile.load('../uploader_config.txt')['Main']['google_api_key'] || ''
+        (self.load_config['Main'] && self.load_config['Main']['google_api_key']) || ''
+      end
+
+      def self.load_config
+        IniFile.load('../uploader_config.txt')
       end
     end
   end
