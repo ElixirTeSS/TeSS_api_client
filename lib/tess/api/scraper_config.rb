@@ -10,7 +10,7 @@ module Tess
         return @@test_settings if @@test_settings
 
         host, port, protocol, user_email, user_token = nil
-        myini = self.load_config
+        myini = IniFile.load('../uploader_config.txt')
 
         unless myini
           raise "Can't open config file!"
@@ -44,7 +44,7 @@ module Tess
       end
 
       def self.load_config
-        IniFile.load('../uploader_config.txt')
+        IniFile.load('../uploader_config.txt') || {}
       end
     end
   end
