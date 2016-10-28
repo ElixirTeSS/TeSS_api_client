@@ -24,7 +24,7 @@ module Tess
         # TODO: Check if this is really necessary:
         [:scientific_topic_names, :package_ids, :keywords, :contributors,
          :authors, :target_audience, :node_ids].each do |attr|
-          params[attr] = [params[attr]].flatten
+          params[attr] = [params[attr]].flatten.compact
         end
 
         super
