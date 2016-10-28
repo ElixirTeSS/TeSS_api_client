@@ -7,7 +7,7 @@ module Tess
       end
 
       def self.get_config
-        return @@test_settings if @@test_settings
+        return @@test_settings if defined? @@test_settings
 
         host, port, protocol, user_email, user_token = nil
         myini = IniFile.load('../uploader_config.txt')
