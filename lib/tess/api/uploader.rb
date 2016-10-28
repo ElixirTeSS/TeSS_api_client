@@ -64,7 +64,7 @@ module Tess
       end
 
       def self.do_upload(data, auth, data_type, action, method)
-        conf = ScraperConfig.get_config
+        conf = Tess::API.config
         url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
         # process data to json for uploading
 

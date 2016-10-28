@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
                    'lib/tess/api/has_content_provider.rb',
                    'lib/tess/api/node.rb',
                    'lib/tess/api/resource.rb',
-                   'lib/tess/api/scraper_config.rb',
                    'lib/tess/api/uploader.rb'
   ]
   s.homepage    = 'https://github.com/ElixirUK/TeSS_api_client'

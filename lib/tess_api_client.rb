@@ -16,6 +16,27 @@ module Tess
     require 'tess/api/event'
     require 'tess/api/node'
     require 'tess/api/uploader'
-    require 'tess/api/scraper_config'
+
+    def self.config
+      @@config ||= self.load_config
+    end
+
+    def self.config= hash
+      @@config = hash
+    end
+
+    def self.load_config(ini_file = 'uploader_config.txt')
+      ini = IniFile.load(ini_file)
+
+      raise "Can't open config file: #{ini_file}" unless ini
+      raise "Missing 'Main' section in config file" unless ini['Main']
+
+      self.config = ini['Main']
+    end
+
+    def self.debug?
+      self.config['debug']
+    end
+
   end
 end
