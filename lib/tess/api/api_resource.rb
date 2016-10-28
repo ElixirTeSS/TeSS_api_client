@@ -28,7 +28,7 @@ module Tess
       end
 
       def exists?
-        response = Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}/check_exists.json", 'post')
+        response = Uploader.do_upload(self, false, self.class.data_type, "/#{self.class.resource_path}/check_exists.json", 'post')
         self.id = response['id']
 
         !response['id'].nil?
