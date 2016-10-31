@@ -238,6 +238,7 @@ class MaterialTest < Test::Unit::TestCase
       res = @material_to_be_created.create
       assert res['id'].to_i > 0
       assert_equal 'A new material', res['title']
+      refute res.errors
     end
   end
 
@@ -324,11 +325,11 @@ class MaterialTest < Test::Unit::TestCase
     end
   end
 
-  test 'raises exception when attempting to create invalid material' do
+  test 'stores errors when attempting to create invalid material' do
     VCR.use_cassette('invalid_material_upload') do
-      assert_raise(RestClient::UnprocessableEntity) do
-        @invalid_material.create
-      end
+      mat = @invalid_material.create
+      assert_include mat.errors.keys, 'short_description'
+      assert_include mat.errors.keys, 'url'
     end
   end
 

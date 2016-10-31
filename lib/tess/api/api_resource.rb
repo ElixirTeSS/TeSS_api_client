@@ -2,19 +2,27 @@ module Tess
   module API
     module ApiResource
 
-      attr_accessor :last_action
+      attr_accessor :last_action, :errors
 
       def create
-        response = Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}.json", :post)
-        self.id = response['id']
-        self.last_action = :create
+        begin
+          response = Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}.json", :post)
+          self.id = response['id']
+          self.last_action = :create
+        rescue RestClient::ExceptionWithResponse => e
+          self.errors = error_message(e)
+        end
 
         self
       end
 
       def update
-        Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}/#{self.id}.json", :put)
-        self.last_action = :update
+        begin
+          Uploader.do_upload(self, true, self.class.data_type, "/#{self.class.resource_path}/#{self.id}.json", :put)
+          self.last_action = :update
+        rescue RestClient::ExceptionWithResponse => e
+          self.errors = error_message(e)
+        end
 
         self
       end
@@ -38,6 +46,16 @@ module Tess
         self.id = response['id']
 
         !response['id'].nil?
+      end
+
+      private
+
+      def error_message(exception)
+        begin
+          JSON.parse(exception.response)
+        rescue JSON::ParserError
+          { error_message: exception }
+        end
       end
 
     end
