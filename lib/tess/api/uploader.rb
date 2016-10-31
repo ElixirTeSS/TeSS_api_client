@@ -64,58 +64,27 @@ module Tess
       end
 
       def self.do_upload(data, auth, data_type, action, method)
-        conf = Tess::API.config
-        url = conf['protocol'] + '://' + conf['host'] + ':' + conf['port'].to_s + action
-        # process data to json for uploading
-
-        user_email = conf['user_email']
-        user_token = conf['user_token']
-        if user_email.nil? or user_token.nil?
-          puts 'API connection information missing!'
-          return
-        end
-
         # The data to post must be converted to JSON and
         # the proper auth details added.
         if auth
-          payload = {:user_email => user_email,
-                     :user_token => user_token,
-                     data_type.to_sym => data.dump
+          payload = { user_email: Tess::API.config['user_email'],
+                      user_token: Tess::API.config['user_token'],
+                     data_type => data.dump
           }.to_json
         else
           payload = data.to_json
         end
 
-        uri = URI(url)
-        http = Net::HTTP.new(uri.host, uri.port)
-        if url =~ /https/
-          http.use_ssl = true
-          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        response = RestClient::Request.execute(method: method.to_sym,
+                                               url: (Tess::API.base_url + action),
+                                               payload: payload,
+                                               headers: { content_type: 'application/json'})
+
+        begin
+          JSON.parse(response.body)
+        rescue JSON::ParserError
+          {}
         end
-
-        if method == 'put'
-          req = Net::HTTP::Put.new(uri.request_uri, initheader = { 'Content-Type' =>'application/json' })
-        elsif method == 'post'
-          req = Net::HTTP::Post.new(uri.request_uri, initheader = { 'Content-Type' =>'application/json' })
-        else
-          puts "Unknown method '#{method}'!"
-          return
-        end
-
-
-        req.body = payload
-        res = http.request(req)
-
-        unless res.code == '201' or res.code == '200'
-          puts "Upload failed: #{res.code}"
-          puts "ERROR: #{res.body}"
-          puts "PAYLOAD: #{payload}"
-          return {}
-        end
-
-        # package_create returns the created package as its result.
-        created_record = JSON.parse(res.body) rescue {}
-        return created_record
       end
 
     end

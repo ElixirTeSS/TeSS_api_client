@@ -6,7 +6,7 @@ module Tess
       include HasContentProvider
 
       def self.data_type
-        'event'
+        :event
       end
 
       def self.resource_path

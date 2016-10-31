@@ -6,7 +6,7 @@ module Tess
       include HasContentProvider
 
       def self.data_type
-        'material'
+        :material
       end
 
       def self.resource_path

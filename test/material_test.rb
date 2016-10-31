@@ -3,114 +3,116 @@ require 'test_helper'
 class MaterialTest < Test::Unit::TestCase
 
   setup do
-    @material = Tess::API::Material.new({ content_provider_id: 123,
-                               title: 'A new material',
-                               url: 'http://example.com/materials/789',
-                               short_description: 'A cool material',
-                               long_description: 'A cooooooool material',
-                               remote_created_date: '2016-08-10',
-                               keywords: ['dog', 'cat'],
-                               licence: 'GPL-3.0' })
+    @material = Tess::API::Material.new(
+        { content_provider_id: 123,
+          title: 'A new material',
+          url: 'http://example.com/materials/789',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0' })
 
-    @material_full = Tess::API::Material.new({ id: 1,
-                                    title: 'Interesting Material',
-                                    url: 'http://example.com/materials/123',
-                                    short_description: 'Super interesting',
-                                    long_description: 'Super duper interesting',
-                                    doi: '10.5072/doi/123',
-                                    remote_created_date: '2016-02-01',
-                                    remote_updated_date: '2016-02-06',
-                                    package_ids: [1,2],
-                                    content_provider_id: 1,
-                                    keywords: ['interesting', 'material'],
-                                    scientific_topic_names: ['Proteins', 'Metabolites'],
-                                    licence: 'CC-BY-4.0',
-                                    difficulty_level: ['easy'],
-                                    contributors: ['Dave', 'Steve'],
-                                    authors: ['Davina', 'Stacy'],
-                                    target_audience: ['guys', 'gals'],
-                                    node_ids: [8,9],
-                                    external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
+    @material_full = Tess::API::Material.new(
+        { id: 1,
+          title: 'Interesting Material',
+          url: 'http://example.com/materials/123',
+          short_description: 'Super interesting',
+          long_description: 'Super duper interesting',
+          doi: '10.5072/doi/123',
+          remote_created_date: '2016-02-01',
+          remote_updated_date: '2016-02-06',
+          package_ids: [1,2],
+          content_provider_id: 1,
+          keywords: ['interesting', 'material'],
+          scientific_topic_names: ['Proteins', 'Metabolites'],
+          licence: 'CC-BY-4.0',
+          difficulty_level: ['easy'],
+          contributors: ['Dave', 'Steve'],
+          authors: ['Davina', 'Stacy'],
+          target_audience: ['guys', 'gals'],
+          node_ids: [8,9],
+          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
 
     @material_to_be_created = Tess::API::Material.new(
-        {
-            content_provider_id: 1,
-            title: 'A new material',
-            url: 'http://example.com/materials/789',
-            short_description: 'A cool material',
-            long_description: 'A cooooooool material',
-            remote_created_date: '2016-08-10',
-            keywords: ['dog', 'cat'],
-            licence: 'GPL-3.0'
+        { content_provider_id: 1,
+          title: 'A new material',
+          url: 'http://example.com/materials/789',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
         })
 
     @existing_material = Tess::API::Material.new(
-        {
-            content_provider_id: 1,
-            title: 'An existing material',
-            url: 'http://example.com/materials/existing',
-            keywords: ['dog', 'cat'],
-            short_description: 'a',
-            licence: 'GPL-3.0'
+        { content_provider_id: 1,
+          title: 'An existing material',
+          url: 'http://example.com/materials/existing',
+          keywords: ['dog', 'cat'],
+          short_description: 'a',
+          licence: 'GPL-3.0'
         })
 
     @non_existing_material = Tess::API::Material.new(
-        {
-            content_provider_id: 1,
-            title: 'An novel material',
-            short_description: 'a',
-            url: 'http://example.com/materials/123'
+        { content_provider_id: 1,
+          title: 'An novel material',
+          short_description: 'a',
+          url: 'http://example.com/materials/123'
         })
 
     @material_to_be_updated = Tess::API::Material.new(
-        {
-            id: 170,
-            title: 'Adjusted title',
-            keywords: ['bear']
+        { id: 170,
+          title: 'Adjusted title',
+          keywords: ['bear']
         })
 
     @material_with_new_content_provider = Tess::API::Material.new(
-        {
-            content_provider: Tess::API::ContentProvider.new(
-                { title: 'Fresh-off-the-grill Content',
-                  url: 'http://example.com/content_providers/bbq',
-                  keywords: ['bbq', 'steak']
-                }),
-            title: 'A new material with an existing content provider',
-            url: 'http://example.com/materials/nmwecp',
-            short_description: 'A cool material',
-            long_description: 'A cooooooool material',
-            remote_created_date: '2016-08-10',
-            keywords: ['dog', 'cat'],
-            licence: 'GPL-3.0'
+        { content_provider: Tess::API::ContentProvider.new(
+            { title: 'Fresh-off-the-grill Content',
+              url: 'http://example.com/content_providers/bbq',
+              keywords: ['bbq', 'steak']
+            }),
+          title: 'A new material with an existing content provider',
+          url: 'http://example.com/materials/nmwecp',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
         })
 
     @material_with_existing_content_provider = Tess::API::Material.new(
-        {
-            content_provider: Tess::API::ContentProvider.new(
-                { title: 'Now is the winter of our content',
-                  url: 'http://example.com/content_providers/winter',
-                }),
-            title: 'A new material with a new content provider',
-            url: 'http://example.com/materials/nmwncp',
-            short_description: 'A cool material',
-            long_description: 'A cooooooool material',
-            remote_created_date: '2016-08-10',
-            keywords: ['dog', 'cat'],
-            licence: 'GPL-3.0'
+        { content_provider: Tess::API::ContentProvider.new(
+            { title: 'Now is the winter of our content',
+              url: 'http://example.com/content_providers/winter',
+            }),
+          title: 'A new material with a new content provider',
+          url: 'http://example.com/materials/nmwncp',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
         })
+
+    @invalid_material = Tess::API::Material.new(
+        { content_provider_id: 123,
+          title: 'Missing field material',
+          licence: 'GPL-3.0' })
   end
 
   test 'can initialize a material' do
     assert_nothing_raised do
-      Tess::API::Material.new({ content_provider_id: 123,
-                     title: 'A new material',
-                     url: 'http://example.com/materials/789',
-                     short_description: 'A cool material',
-                     long_description: 'A cooooooool material',
-                     remote_created_date: '2016-08-10',
-                     keywords: ['dog', 'cat'],
-                     licence: 'GPL-3.0' })
+      Tess::API::Material.new(
+          { content_provider_id: 123,
+                                title: 'A new material',
+                                url: 'http://example.com/materials/789',
+                                short_description: 'A cool material',
+                                long_description: 'A cooooooool material',
+                                remote_created_date: '2016-08-10',
+                                keywords: ['dog', 'cat'],
+                                licence: 'GPL-3.0' })
     end
   end
 
@@ -318,6 +320,14 @@ class MaterialTest < Test::Unit::TestCase
         res = @material_with_existing_content_provider.create
         assert res['id'].to_i > 0
         assert_equal 9, res.content_provider_id
+      end
+    end
+  end
+
+  test 'raises exception when attempting to create invalid material' do
+    VCR.use_cassette('invalid_material_upload') do
+      assert_raise(RestClient::UnprocessableEntity) do
+        @invalid_material.create
       end
     end
   end

@@ -5,7 +5,7 @@ module Tess
       include ApiResource
 
       def self.data_type
-        'content_provider'
+        :content_provider
       end
 
       def self.resource_path
