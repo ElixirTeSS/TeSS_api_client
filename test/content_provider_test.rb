@@ -156,5 +156,19 @@ class ContentProviderTest < Test::Unit::TestCase
       assert_equal 'Changed title', res['title']
     end
   end
+
+  test 'can find or create a content provider' do
+    refute @existing_content_provider.id
+    VCR.use_cassette('check_existing_content_provider') do
+      @existing_content_provider.find_or_create
+      assert @existing_content_provider.id
+    end
+
+    refute @non_existing_content_provider.id
+    VCR.use_cassette('create_or_update_content_provider_create') do
+      @non_existing_content_provider.find_or_create
+      assert @non_existing_content_provider.id
+    end
+  end
   
 end

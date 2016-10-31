@@ -27,6 +27,12 @@ module Tess
         end
       end
 
+      def find_or_create
+        create unless exists?
+
+        self
+      end
+
       def exists?
         response = Uploader.do_upload(self, false, self.class.data_type, "/#{self.class.resource_path}/check_exists.json", 'post')
         self.id = response['id']
