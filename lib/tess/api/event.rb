@@ -28,9 +28,6 @@ module Tess
       def initialize(params = {})
         params[:last_scraped] = Time.now
         params[:scraper_record] = true
-        # TODO: Stop using `start_date` and `end_date` in scrapers
-        params[:start] ||= params.delete(:start_date)
-        params[:end] ||= params.delete(:end_date)
 
         super
       end
