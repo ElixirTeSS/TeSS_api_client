@@ -27,6 +27,30 @@ module Tess
         self.instance_variable_get('@' + var)
       end
 
+      # Metaprogramming!
+      def self.cv_attributes(hash)
+        hash.each do |attr, vocab|
+          alias_method "old_#{attr}=", "#{attr}="
+
+          define_method("#{attr}=") do |value|
+            is_array = value.is_a?(Array)
+            value = [value] unless is_array
+
+            actual_value = value.map do |v|
+              if v.is_a?(Symbol)
+                vocab[v]
+              else
+                v
+              end
+            end
+
+            actual_value = actual_value[0] unless is_array
+
+            send("old_#{attr}=", actual_value)
+          end
+        end
+      end
+
     end
   end
 end

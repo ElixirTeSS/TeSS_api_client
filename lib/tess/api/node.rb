@@ -27,13 +27,14 @@ module Tess
       }
 
       MEMBER_STATUS = {
-          :MEMBER => 'Member',
-          :OBSERVER => 'Observer'
+          member: 'Member',
+          observer: 'Observer'
       }
 
+      cv_attributes(member_status: MEMBER_STATUS)
 
       def initialize(params = {})
-        params[:member_status] ||= MEMBER_STATUS[:OBSERVER]
+        params[:member_status] ||= :observer
 
         super
       end

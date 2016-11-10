@@ -19,11 +19,13 @@ module Tess
                     :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes
 
       EVENT_TYPE = {
-          :awards_and_prizegivings => "awards_and_prizegivings",
-          :meetings_and_conferences => "meetings_and_conferences",
-          :receptions_and_networking => "receptions_and_networking",
-          :workshops_and_courses => "workshops_and_courses"
+          awards_and_prizegivings: 'awards_and_prizegivings',
+          meetings_and_conferences: 'meetings_and_conferences',
+          receptions_and_networking: 'receptions_and_networking',
+          workshops_and_courses: 'workshops_and_courses'
       }
+
+      cv_attributes(event_types: EVENT_TYPE)
 
       def initialize(params = {})
         params[:last_scraped] = Time.now

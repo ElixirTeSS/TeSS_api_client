@@ -14,7 +14,7 @@ class ContentProviderTest < Test::Unit::TestCase
           image_url: 'http://example.com/images/content_p.png',
           description: 'Hey!',
           content_provider_type: 'anything?',
-          node: 'Francis',
+          node_name: 'Francis',
           keywords: ['cat', 'dog'] })
 
     @content_provider_to_be_created = Tess::API::ContentProvider.new(
@@ -90,14 +90,26 @@ class ContentProviderTest < Test::Unit::TestCase
     end
   end
 
+  test 'can set CV-using fields with symbols or literals' do
+    cp = Tess::API::ContentProvider.new({ content_provider_type: :organisation, node_name: :CZ })
+
+    assert_equal Tess::API::ContentProvider::PROVIDER_TYPE[:organisation], cp.content_provider_type
+    assert_equal Tess::API::Node::NODE_NAMES[:CZ], cp.node_name
+
+    cp = Tess::API::ContentProvider.new({ content_provider_type: Tess::API::ContentProvider::PROVIDER_TYPE[:organisation],
+                                          node_name: Tess::API::Node::NODE_NAMES[:CZ] })
+
+    assert_equal Tess::API::ContentProvider::PROVIDER_TYPE[:organisation], cp.content_provider_type
+    assert_equal Tess::API::Node::NODE_NAMES[:CZ], cp.node_name
+  end
+
   test 'can dump content provider as hash' do
     hash = @content_provider.dump
 
     assert_equal 'Provider of Content', hash['title']
     assert_include hash['keywords'], 'dog'
-    assert_equal hash['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:ORGANISATION]
+    assert_equal hash['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:organisation]
   end
-
 
   test 'can dump content provider as JSON' do
     json = @content_provider.to_json
@@ -109,7 +121,7 @@ class ContentProviderTest < Test::Unit::TestCase
 
     assert_equal 'Provider of Content', parsed['title']
     assert_include parsed['keywords'], 'dog'
-    assert_equal parsed['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:ORGANISATION]
+    assert_equal parsed['content_provider_type'], Tess::API::ContentProvider::PROVIDER_TYPE[:organisation]
   end
 
 

@@ -123,16 +123,17 @@ class EventTest < Test::Unit::TestCase
 
   test 'can initialize an event' do
     assert_nothing_raised do
-      Tess::API::Event.new({ content_provider_id: 123,
-                             title: 'A new event',
-                             url: 'http://example.com/events/789',
-                             description: 'A cool event',
-                             start: '2016-08-10',
-                             end: '2016-08-12',
-                             venue: 'A cool place',
-                             keywords: ['dog', 'cat'],
-                             latitude: 65,
-                             longitude: 65 })
+      Tess::API::Event.new(
+          { content_provider_id: 123,
+            title: 'A new event',
+            url: 'http://example.com/events/789',
+            description: 'A cool event',
+            start: '2016-08-10',
+            end: '2016-08-12',
+            venue: 'A cool place',
+            keywords: ['dog', 'cat'],
+            latitude: 65,
+            longitude: 65 })
     end
   end
 
@@ -280,6 +281,14 @@ class EventTest < Test::Unit::TestCase
     end
   end
 
+  test 'can set CV-using fields with symbols or literals' do
+    e = Tess::API::Event.new({ event_types: [:awards_and_prizegivings, Tess::API::Event::EVENT_TYPE[:meetings_and_conferences]] })
+
+    assert_equal 2, e.event_types.length
+    assert_includes e.event_types, Tess::API::Event::EVENT_TYPE[:awards_and_prizegivings]
+    assert_includes e.event_types, Tess::API::Event::EVENT_TYPE[:meetings_and_conferences]
+  end
+
   test 'can dump event as hash' do
     hash = @event.dump
 
@@ -287,7 +296,6 @@ class EventTest < Test::Unit::TestCase
     assert_include hash['keywords'], 'dog'
     assert_include hash['end'], '2016-08-12'
   end
-
 
   test 'can dump event as JSON' do
     json = @event.to_json
@@ -301,7 +309,6 @@ class EventTest < Test::Unit::TestCase
     assert_include parsed['keywords'], 'dog'
     assert_include parsed['end'], '2016-08-12'
   end
-
 
   test 'can create an event' do
     VCR.use_cassette('new_event_upload') do

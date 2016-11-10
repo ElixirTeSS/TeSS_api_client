@@ -15,13 +15,15 @@ module Tess
       attr_accessor :title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords
 
       PROVIDER_TYPE = {
-          :ORGANISATION => "Organisation",
-          :PORTAL => "Portal",
-          :PROJECT => "Project"
+          organisation: 'Organisation',
+          portal: 'Portal',
+          project: 'Project'
       }
 
+      cv_attributes({ content_provider_type: PROVIDER_TYPE, node_name: Tess::API::Node::NODE_NAMES })
+
       def initialize(params = {})
-        params[:content_provider_type] ||= PROVIDER_TYPE[:ORGANISATION]
+        params[:content_provider_type] ||= :organisation
         params[:node_name] ||= params.delete(:node)
 
         super

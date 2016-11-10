@@ -13,9 +13,9 @@ module Tess
     require 'tess/api/has_content_provider'
     require 'tess/api/resource'
     require 'tess/api/material'
+    require 'tess/api/node'
     require 'tess/api/content_provider'
     require 'tess/api/event'
-    require 'tess/api/node'
     require 'tess/api/uploader'
 
     def self.config
