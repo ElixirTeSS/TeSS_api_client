@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/materials.json
+    body:
+      encoding: UTF-8
+      string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","material":{"content_provider_id":123,"title":"Missing
+        field material","keywords":[],"licence":"GPL-3.0","last_scraped":"2016-10-31
+        15:06:30 +0000","scraper_record":true,"scientific_topic_names":[],"package_ids":[],"contributors":[],"authors":[],"target_audience":[],"node_ids":[]}}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (linux-gnu x86_64) ruby/2.2.2p95
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '356'
+      Host:
+      - localhost:3001
+  response:
+    status:
+      code: 422
+      message: 'Unprocessable Entity '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - f49dde1a-dd10-4e9f-b841-a729b30eaf37
+      X-Runtime:
+      - '0.030219'
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Mon, 31 Oct 2016 15:06:31 GMT
+      Content-Length:
+      - '85'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"short_description":["can''t be blank"],"url":["can''t be blank","is
+        an invalid URL"]}'
+    http_version: 
+  recorded_at: Mon, 31 Oct 2016 15:06:31 GMT
+recorded_with: VCR 3.0.3

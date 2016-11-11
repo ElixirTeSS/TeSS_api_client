@@ -1,0 +1,8 @@
+[Main]
+host = localhost
+protocol = http
+port = 3000
+user_token = my_secret_api_string
+user_email = me@elixir.eu
+debug = true
+google_api_key = 12345

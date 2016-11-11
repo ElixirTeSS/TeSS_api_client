@@ -3,26 +3,26 @@ require 'test_helper'
 class NodeTest < Test::Unit::TestCase
 
   setup do
-    @node = Node.new(
+    @node = Tess::API::Node.new(
         { name: 'Neverland',
-          member_status: Node::MEMBER_STATUS[:MEMBER]
+          member_status: Tess::API::Node::MEMBER_STATUS[:member]
         })
 
-    @node_full = Node.new(
+    @node_full = Tess::API::Node.new(
         { id: 1,
           name: 'Narnia',
           url: 'http://elixir.narnia',
           image_url: 'http://elixir.narnia/images/logo.png',
           description: 'A magical place',
-          member_status: Node::MEMBER_STATUS[:MEMBER]
+          member_status: Tess::API::Node::MEMBER_STATUS[:member]
         })
   end
 
   test 'can initialize a node' do
     assert_nothing_raised do
-      Node.new(
+      Tess::API::Node.new(
           { name: 'Neverland',
-            member_status: Node::MEMBER_STATUS[:MEMBER]
+            member_status: Tess::API::Node::MEMBER_STATUS[:member]
           })
     end
   end
@@ -50,9 +50,9 @@ class NodeTest < Test::Unit::TestCase
     n.description = 'Cold'
     assert_equal n.description, 'Cold'
 
-    assert_equal n.member_status, Node::MEMBER_STATUS[:MEMBER]
-    n.member_status = Node::MEMBER_STATUS[:OBSERVER]
-    assert_equal n.member_status, Node::MEMBER_STATUS[:OBSERVER]
+    assert_equal n.member_status, Tess::API::Node::MEMBER_STATUS[:member]
+    n.member_status = Tess::API::Node::MEMBER_STATUS[:observer]
+    assert_equal n.member_status, Tess::API::Node::MEMBER_STATUS[:observer]
 
     dump = n.dump
     parsed_json = JSON.parse(n.to_json)
@@ -64,13 +64,22 @@ class NodeTest < Test::Unit::TestCase
     end
   end
 
+  test 'can set CV-using fields with symbols or literals' do
+    e = Tess::API::Node.new({ member_status: :member })
+
+    assert_equal Tess::API::Node::MEMBER_STATUS[:member], e.member_status
+
+    e = Tess::API::Node.new({ member_status: Tess::API::Node::MEMBER_STATUS[:observer] })
+
+    assert_equal Tess::API::Node::MEMBER_STATUS[:observer], e.member_status
+  end
+
   test 'can dump node as hash' do
     hash = @node.dump
 
-    assert_equal Node::MEMBER_STATUS[:MEMBER], hash['member_status']
+    assert_equal Tess::API::Node::MEMBER_STATUS[:member], hash['member_status']
     assert_equal 'Neverland', hash['name']
   end
-
 
   test 'can dump node as JSON' do
     json = @node.to_json
@@ -80,7 +89,7 @@ class NodeTest < Test::Unit::TestCase
       parsed = JSON.parse(json)
     end
 
-    assert_equal Node::MEMBER_STATUS[:MEMBER], parsed['member_status']
+    assert_equal Tess::API::Node::MEMBER_STATUS[:member], parsed['member_status']
     assert_equal 'Neverland', parsed['name']
   end
 
