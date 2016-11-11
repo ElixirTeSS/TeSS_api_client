@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'tess_api_client'
   s.version     = '0.2.0'
-  s.date        = '2016-10-07'
+  s.date        = '2016-11-11'
   s.summary     = 'Libraries for uploading files to http://tess.oerc.ox.ac.uk'
   s.description = 'Uses the a Custom RoR API on https://tess.elixir-uk.org to upload data in the format being used by the TeSS project.'
   s.authors     = ['Milo Thurston','Niall Beard','Aleksandra Nenadic','Finn Bacall']
@@ -9,9 +9,10 @@ Gem::Specification.new do |s|
   s.files       = ['lib/tess_api_client.rb',
                    'lib/tess/api/api_resource.rb',
                    'lib/tess/api/content_provider.rb',
+                   'lib/tess/api/exceptions.rb',
+                   'lib/tess/api/has_content_provider.rb',
                    'lib/tess/api/event.rb',
                    'lib/tess/api/material.rb',
-                   'lib/tess/api/has_content_provider.rb',
                    'lib/tess/api/node.rb',
                    'lib/tess/api/resource.rb',
                    'lib/tess/api/uploader.rb'
