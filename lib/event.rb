@@ -6,7 +6,7 @@ class Event < Resource
                 :city, :county, :country, :postcode, :latitude, :longitude,
                 :package_ids, :node_ids, :target_audience, :eligibility,
                 :host_institutions, :capacity, :contact,
-                :external_resources_attributes
+                :external_resources_attributes, :timezone
 
   EVENT_TYPE = {
       :awards_and_prizegivings => "awards_and_prizegivings",

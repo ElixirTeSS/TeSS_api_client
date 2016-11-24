@@ -27,6 +27,7 @@ class EventTest < Test::Unit::TestCase
                               keywords: ['abc'],
                               start_date: '2016-10-04',
                               end_date: '2016-10-05',
+                              timezone: 'EST',
                               sponsor: 'Bill Gates',
                               online: true,
                               for_profit: true,
