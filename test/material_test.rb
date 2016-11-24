@@ -3,46 +3,116 @@ require 'test_helper'
 class MaterialTest < Test::Unit::TestCase
 
   setup do
-    @material = Material.new({ content_provider_id: 123,
-                               title: 'A new material',
-                               url: 'http://example.com/materials/789',
-                               short_description: 'A cool material',
-                               long_description: 'A cooooooool material',
-                               remote_created_date: '2016-08-10',
-                               keywords: ['dog', 'cat'],
-                               licence: 'GPL-3.0' })
+    @material = Tess::API::Material.new(
+        { content_provider_id: 123,
+          title: 'A new material',
+          url: 'http://example.com/materials/789',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0' })
 
-    @material_full = Material.new({ id: 1,
-                                    title: 'Interesting Material',
-                                    url: 'http://example.com/materials/123',
-                                    short_description: 'Super interesting',
-                                    long_description: 'Super duper interesting',
-                                    doi: '10.5072/doi/123',
-                                    remote_created_date: '2016-02-01',
-                                    remote_updated_date: '2016-02-06',
-                                    package_ids: [1,2],
-                                    content_provider_id: 1,
-                                    keywords: ['interesting', 'material'],
-                                    scientific_topic_names: ['Proteins', 'Metabolites'],
-                                    licence: 'CC-BY-4.0',
-                                    difficulty_level: ['easy'],
-                                    contributors: ['Dave', 'Steve'],
-                                    authors: ['Davina', 'Stacy'],
-                                    target_audience: ['guys', 'gals'],
-                                    node_ids: [8,9],
-                                    external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
+    @material_full = Tess::API::Material.new(
+        { id: 1,
+          title: 'Interesting Material',
+          url: 'http://example.com/materials/123',
+          short_description: 'Super interesting',
+          long_description: 'Super duper interesting',
+          doi: '10.5072/doi/123',
+          remote_created_date: '2016-02-01',
+          remote_updated_date: '2016-02-06',
+          package_ids: [1,2],
+          content_provider_id: 1,
+          keywords: ['interesting', 'material'],
+          scientific_topic_names: ['Proteins', 'Metabolites'],
+          licence: 'CC-BY-4.0',
+          difficulty_level: ['easy'],
+          contributors: ['Dave', 'Steve'],
+          authors: ['Davina', 'Stacy'],
+          target_audience: ['guys', 'gals'],
+          node_ids: [8,9],
+          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
+
+    @material_to_be_created = Tess::API::Material.new(
+        { content_provider_id: 1,
+          title: 'A new material',
+          url: 'http://example.com/materials/789',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
+        })
+
+    @existing_material = Tess::API::Material.new(
+        { content_provider_id: 1,
+          title: 'An existing material',
+          url: 'http://example.com/materials/existing',
+          keywords: ['dog', 'cat'],
+          short_description: 'a',
+          licence: 'GPL-3.0'
+        })
+
+    @non_existing_material = Tess::API::Material.new(
+        { content_provider_id: 1,
+          title: 'An novel material',
+          short_description: 'a',
+          url: 'http://example.com/materials/123'
+        })
+
+    @material_to_be_updated = Tess::API::Material.new(
+        { id: 170,
+          title: 'Adjusted title',
+          keywords: ['bear']
+        })
+
+    @material_with_new_content_provider = Tess::API::Material.new(
+        { content_provider: Tess::API::ContentProvider.new(
+            { title: 'Fresh-off-the-grill Content',
+              url: 'http://example.com/content_providers/bbq',
+              keywords: ['bbq', 'steak']
+            }),
+          title: 'A new material with an existing content provider',
+          url: 'http://example.com/materials/nmwecp',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
+        })
+
+    @material_with_existing_content_provider = Tess::API::Material.new(
+        { content_provider: Tess::API::ContentProvider.new(
+            { title: 'Now is the winter of our content',
+              url: 'http://example.com/content_providers/winter',
+            }),
+          title: 'A new material with a new content provider',
+          url: 'http://example.com/materials/nmwncp',
+          short_description: 'A cool material',
+          long_description: 'A cooooooool material',
+          remote_created_date: '2016-08-10',
+          keywords: ['dog', 'cat'],
+          licence: 'GPL-3.0'
+        })
+
+    @invalid_material = Tess::API::Material.new(
+        { content_provider_id: 123,
+          title: 'Missing field material',
+          licence: 'GPL-3.0' })
   end
 
   test 'can initialize a material' do
     assert_nothing_raised do
-      Material.new({ content_provider_id: 123,
-                     title: 'A new material',
-                     url: 'http://example.com/materials/789',
-                     short_description: 'A cool material',
-                     long_description: 'A cooooooool material',
-                     remote_created_date: '2016-08-10',
-                     keywords: ['dog', 'cat'],
-                     licence: 'GPL-3.0' })
+      Tess::API::Material.new(
+          { content_provider_id: 123,
+                                title: 'A new material',
+                                url: 'http://example.com/materials/789',
+                                short_description: 'A cool material',
+                                long_description: 'A cooooooool material',
+                                remote_created_date: '2016-08-10',
+                                keywords: ['dog', 'cat'],
+                                licence: 'GPL-3.0' })
     end
   end
 
@@ -149,7 +219,6 @@ class MaterialTest < Test::Unit::TestCase
     assert_equal hash['scraper_record'], true
   end
 
-
   test 'can dump material as JSON' do
     json = @material.to_json
     parsed = nil
@@ -162,6 +231,106 @@ class MaterialTest < Test::Unit::TestCase
     assert_include parsed['keywords'], 'dog'
     assert_equal parsed['remote_created_date'], '2016-08-10'
     assert_equal parsed['scraper_record'], true
+  end
+
+  test 'can create a material' do
+    VCR.use_cassette('new_material_upload') do
+      res = @material_to_be_created.create
+      assert res['id'].to_i > 0
+      assert_equal 'A new material', res['title']
+      refute res.errors
+    end
+  end
+
+  test 'can check a material exists' do
+    VCR.use_cassette('check_existing_material') do
+      assert @existing_material.exists?
+    end
+
+    VCR.use_cassette('check_non_existing_material') do
+      refute @non_existing_material.exists?
+    end
+  end
+
+  test 'can update a material' do
+    VCR.use_cassette('material_update') do
+      res = @material_to_be_updated.update
+      assert_equal 'Adjusted title', res['title']
+      assert_equal ['bear'], res['keywords']
+    end
+  end
+
+  test 'can create or update a material' do
+    id = nil
+
+    VCR.use_cassette('create_or_update_material_create') do
+      res = @non_existing_material.create_or_update
+      assert_not_nil res['id']
+      id = res['id']
+    end
+
+    @non_existing_material.title = 'Changed title'
+    VCR.use_cassette('create_or_update_material_update') do
+      res = @non_existing_material.create_or_update
+      assert_equal id, res['id']
+      assert_equal 'Changed title', res['title']
+    end
+  end
+
+  test 'can create a content provider while creating material' do
+    VCR.use_cassette('check_non_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_create') do
+        VCR.use_cassette('create_new_material_with_new_content_provider') do
+          res = @material_with_new_content_provider.create
+          assert res['id'].to_i > 0
+          assert res.content_provider.id > 0
+          assert res.content_provider_id > 0
+        end
+      end
+    end
+  end
+
+  test 'does not duplicate existing content provider while creating material' do
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_or_update_content_provider_update') do
+        VCR.use_cassette('create_new_material_with_existing_content_provider') do
+          res = @material_with_existing_content_provider.create
+          assert res['id'].to_i > 0
+          assert_equal 9, res.content_provider.id
+          assert_equal 9, res.content_provider_id
+        end
+      end
+    end
+  end
+
+  test 'does not create/update content provider while creating material if given ID' do
+    @material_with_existing_content_provider.content_provider = nil
+    @material_with_existing_content_provider.content_provider_id = 9
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_new_material_with_existing_content_provider') do
+        res = @material_with_existing_content_provider.create
+        assert res['id'].to_i > 0
+        assert_equal 9, res.content_provider_id
+      end
+    end
+
+    @material_with_existing_content_provider.content_provider = Tess::API::ContentProvider.new(id: 9)
+    @material_with_existing_content_provider.content_provider_id = nil
+    VCR.use_cassette('check_existing_content_provider') do
+      VCR.use_cassette('create_new_material_with_existing_content_provider') do
+        res = @material_with_existing_content_provider.create
+        assert res['id'].to_i > 0
+        assert_equal 9, res.content_provider_id
+      end
+    end
+  end
+
+  test 'stores errors when attempting to create invalid material' do
+    VCR.use_cassette('invalid_material_upload') do
+      mat = @invalid_material.create
+      assert_include mat.errors.keys, 'short_description'
+      assert_include mat.errors.keys, 'url'
+    end
   end
 
 end
