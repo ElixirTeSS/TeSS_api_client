@@ -2,20 +2,21 @@ module Tess
   module API
     module HasContentProvider
 
-      attr_accessor :content_provider, :content_provider_id
+      attr_accessor :content_provider
+      attr_writer :content_provider_id
 
       def content_provider_id
-        @content_provider ? @content_provider.id : @content_provider_id
+        content_provider ? content_provider.id : @content_provider_id
       end
 
       def update
-        @content_provider.create_or_update if @content_provider && !content_provider_id
+        content_provider.create_or_update if content_provider && !content_provider_id
 
         super
       end
 
       def create
-        @content_provider.create_or_update if @content_provider && !content_provider_id
+        content_provider.create_or_update if content_provider && !content_provider_id
 
         super
       end

@@ -24,7 +24,7 @@ module Tess
       end
 
       def [](var)
-        self.instance_variable_get('@' + var)
+        self.instance_variable_defined?('@' + var) ? self.instance_variable_get('@' + var) : nil
       end
 
       # Metaprogramming!
