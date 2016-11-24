@@ -119,6 +119,10 @@ class EventTest < Test::Unit::TestCase
     e.end = '2016-10-07'
     assert_equal '2016-10-07', e.end
 
+    assert_equal 'EST', e.timezone
+    e.timezone = 'GMT'
+    assert_equal 'GMT', e.timezone
+
     assert_equal 'Bill Gates', e.sponsor
     e.sponsor = 'Gill Bates'
     assert_equal 'Gill Bates', e.sponsor
