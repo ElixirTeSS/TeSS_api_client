@@ -54,7 +54,7 @@ module Tess
         begin
           JSON.parse(exception.response)
         rescue JSON::ParserError
-          { error_message: exception }
+          { 'exception' => "#{exception.class.name}: #{exception.message}" }
         end
       end
 

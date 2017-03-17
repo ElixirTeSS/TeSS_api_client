@@ -5,8 +5,8 @@ http_interactions:
     uri: http://localhost:3001/materials/check_exists.json
     body:
       encoding: UTF-8
-      string: '{"content_provider_id":1,"title":"An existing material","url":"http://example.com/materials/existing","keywords":["dog","cat"],"short_description":"a","licence":"GPL-3.0","last_scraped":"2016-10-06
-        15:56:06 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}'
+      string: '{"material":{"content_provider_id":1,"title":"An existing material","url":"http://example.com/materials/existing","keywords":["dog","cat"],"short_description":"a","licence":"GPL-3.0","last_scraped":"2016-10-06
+        15:56:06 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
     headers:
       Content-Type:
       - application/json

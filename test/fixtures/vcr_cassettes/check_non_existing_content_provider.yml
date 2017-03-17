@@ -5,7 +5,7 @@ http_interactions:
     uri: http://localhost:3001/content_providers/check_exists.json
     body:
       encoding: UTF-8
-      string: '{"title":"Fresh-off-the-grill Content","url":"http://example.com/content_providers/bbq","keywords":["bbq","steak"],"content_provider_type":"Organisation","node_name":null}'
+      string: '{"content_provider":{"title":"Fresh-off-the-grill Content","url":"http://example.com/content_providers/bbq","keywords":["bbq","steak"],"content_provider_type":"Organisation","node_name":null}}'
     headers:
       Content-Type:
       - application/json

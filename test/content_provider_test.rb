@@ -39,6 +39,22 @@ class ContentProviderTest < Test::Unit::TestCase
           title: 'Re-branded Content Provider',
           keywords: ['hip', '#hashtag']
         })
+
+    @content_provider_with_missing_fields = Tess::API::ContentProvider.new(
+        { title: '',
+          url: '',
+        })
+
+    @not_found_content_provider = Tess::API::ContentProvider.new(
+        { id: 404040404,
+          title: 'I will return a 404 or something',
+          url: 'http://example.com/content_providers/404',
+        })
+
+    @bad_response_content_provider = Tess::API::ContentProvider.new(
+        { title: 'I will return a 500 or something',
+          url: 'http://example.com/content_providers/500',
+        })
   end
 
   test 'can initialize a content provider' do
@@ -182,5 +198,26 @@ class ContentProviderTest < Test::Unit::TestCase
       assert @non_existing_content_provider.id
     end
   end
-  
+
+  test 'stores errors messages on bad create' do
+    VCR.use_cassette('missing_fields_content_provider_create_response') do
+      res = @content_provider_with_missing_fields.create
+      assert res['errors']['title'].any?
+      assert res['errors']['url'].any?
+    end
+  end
+
+  test 'stores 505 exception message on bad create' do
+    VCR.use_cassette('bad_content_provider_create_response') do
+      res = @bad_response_content_provider.create
+      assert_equal 'RestClient::InternalServerError: 500 Internal Server Error', res['errors']['exception']
+    end
+  end
+
+  test 'stores 404 exception message on bad update' do
+    VCR.use_cassette('bad_content_provider_update_response') do
+      res = @not_found_content_provider.update
+      assert_equal 'RestClient::NotFound: 404 Not Found', res['errors']['exception']
+    end
+  end
 end

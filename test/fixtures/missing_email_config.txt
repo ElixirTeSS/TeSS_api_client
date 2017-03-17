@@ -1,0 +1,7 @@
+[Main]
+host = localhost
+protocol = http
+port = 3000
+user_token = my_secret_api_string
+debug = true
+google_api_key = 12345

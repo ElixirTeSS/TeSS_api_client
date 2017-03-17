@@ -30,6 +30,10 @@ class ScraperConfigTest < Test::Unit::TestCase
     assert_raise(Tess::API::BadConfigException) do
       Tess::API.load_config(File.join(File.dirname(__FILE__), 'fixtures', 'bad_config.txt'))
     end
+
+    assert_raise(Tess::API::BadConfigException) do
+      Tess::API.load_config(File.join(File.dirname(__FILE__), 'fixtures', 'missing_email_config.txt'))
+    end
   end
 
 end

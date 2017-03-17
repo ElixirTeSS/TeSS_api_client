@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:3001/content_providers.json
+    body:
+      encoding: UTF-8
+      string: '{"content_provider":{"title":"","url":"","content_provider_type":"Organisation","node_name":null},"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M"}'
+    headers:
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - rest-client/2.0.0 (linux-gnu x86_64) ruby/2.2.2p95
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '171'
+      Host:
+      - localhost:3001
+  response:
+    status:
+      code: 422
+      message: 'Unprocessable Entity '
+    headers:
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 5dcac1d1-3dab-4d20-907d-33a71b5c3532
+      X-Runtime:
+      - '0.387691'
+      Vary:
+      - Origin
+      Server:
+      - WEBrick/1.3.1 (Ruby/2.2.2/2015-04-13)
+      Date:
+      - Fri, 17 Mar 2017 14:44:12 GMT
+      Content-Length:
+      - '74'
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: '{"title":["can''t be blank"],"url":["can''t be blank","is not a valid
+        URL"]}'
+    http_version: 
+  recorded_at: Fri, 17 Mar 2017 14:44:12 GMT
+recorded_with: VCR 3.0.3
