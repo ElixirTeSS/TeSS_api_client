@@ -16,7 +16,7 @@ module Tess
       attr_accessor :id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
                     :remote_created_date,  :remote_updated_date, :package_ids, :keywords, :scientific_topic_names,
                     :licence, :difficulty_level, :contributors, :authors, :target_audience, :node_ids,
-                    :external_resources_attributes
+                    :external_resources_attributes, :resource_type
 
       def initialize(params = {})
         params[:last_scraped] = Time.now

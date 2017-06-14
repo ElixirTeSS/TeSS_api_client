@@ -10,6 +10,7 @@ class MaterialTest < Test::Unit::TestCase
           short_description: 'A cool material',
           long_description: 'A cooooooool material',
           remote_created_date: '2016-08-10',
+          resource_type: 'Video',
           keywords: ['dog', 'cat'],
           licence: 'GPL-3.0' })
 
