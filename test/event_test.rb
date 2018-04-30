@@ -30,7 +30,7 @@ class EventTest < Test::Unit::TestCase
           start: '2016-10-04',
           end: '2016-10-05',
           timezone: 'EST',
-          sponsor: 'Bill Gates',
+          sponsors: ['Bill Gates'],
           online: true,
           for_profit: true,
           venue: 'A place',
@@ -197,9 +197,9 @@ class EventTest < Test::Unit::TestCase
     e.timezone = 'GMT'
     assert_equal 'GMT', e.timezone
 
-    assert_equal 'Bill Gates', e.sponsor
-    e.sponsor = 'Gill Bates'
-    assert_equal 'Gill Bates', e.sponsor
+    assert_equal ['Bill Gates'], e.sponsors
+    e.sponsors = ['Gill Bates']
+    assert_equal ['Gill Bates'], e.sponsors
 
     assert_equal true, e.online
     e.online = false
@@ -276,7 +276,7 @@ class EventTest < Test::Unit::TestCase
 
     [:id, :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
      :scraper_record, :description, :scientific_topic_names, :event_types,
-     :keywords, :start, :end, :sponsor, :online, :for_profit, :venue,
+     :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
      :city, :county, :country, :postcode, :latitude, :longitude,
      :package_ids, :node_ids, :target_audience, :eligibility,
      :host_institutions, :capacity, :contact].each do |attr|

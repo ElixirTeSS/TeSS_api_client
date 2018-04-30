@@ -14,7 +14,7 @@ module Tess
       end
 
       attr_accessor :id, :external_id, :title, :subtitle, :url, :organizer, :last_scraped, :scraper_record, :description,
-                    :scientific_topic_names, :event_types, :keywords, :start, :end, :sponsor, :online, :for_profit, :venue,
+                    :scientific_topic_names, :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
                     :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
                     :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone
 
