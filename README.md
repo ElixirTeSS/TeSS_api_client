@@ -18,7 +18,7 @@ content_provider = Tess::API::ContentProvider.new(
     title: 'My Organization Name',
     url: 'https://my.org.org/',
     image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Smiley.svg/2000px-Smiley.svg.png',
-    description: 'We're sharing our content with TeSS!')
+    description: "We're sharing our content with TeSS!")
 
 material = Tess::API::Material.new(
     title: 'How to use TeSS API',
