@@ -272,17 +272,16 @@ class EventTest < Test::Unit::TestCase
     assert_equal 'http://www.example.com/resources/3', e.external_resources_attributes.first[:url]
 
     dump = e.dump
-    parsed_json = JSON.parse(e.to_json)
+    parsed_json = JSON.parse(e.to_json, symbolize_names: true)
 
-    [:id, :external_id, :content_provider_id, :title, :subtitle, :url, :organizer, :last_scraped,
-     :scraper_record, :description, :scientific_topic_names, :event_types,
-     :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
-     :city, :county, :country, :postcode, :latitude, :longitude,
-     :package_ids, :node_ids, :target_audience, :eligibility,
-     :host_institutions, :capacity, :contact].each do |attr|
+    [:id, :external_id, :title, :subtitle, :url, :organizer, :last_scraped, :scraper_record, :description,
+     :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
+     :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
+     :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
+     :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone].each do |attr|
       assert_equal e.send(attr), e[attr.to_s], "Unexpected value of '#{attr}' for event when using []"
       assert_equal e.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for event in hash dump"
-      assert_equal e.send(attr).to_s, parsed_json[attr.to_s].to_s, "Unexpected value of '#{attr}' for event in JSON"
+      assert_equal e.send(attr).to_s, parsed_json[attr].to_s, "Unexpected value of '#{attr}' for event in JSON"
     end
   end
 

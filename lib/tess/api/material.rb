@@ -14,7 +14,8 @@ module Tess
       end
 
       attr_accessor :id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
-                    :remote_created_date,  :remote_updated_date, :package_ids, :keywords, :scientific_topic_names,
+                    :remote_created_date,  :remote_updated_date, :package_ids, :keywords,
+                    :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
                     :licence, :difficulty_level, :contributors, :authors, :target_audience, :node_ids,
                     :external_resources_attributes, :resource_type
 
