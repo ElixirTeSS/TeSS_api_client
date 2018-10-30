@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'tess_api_client'
-  s.version     = '0.3.2'
+  s.version     = '0.3.3'
   s.date        = '2018-04-30'
   s.summary     = 'Libraries for uploading files to https://github.com/ElixirTeSS/TeSS'
   s.description = 'Uses the a Custom RoR API on https://tess.elixir-europe.org to upload data in the format being used by the TeSS project.'
