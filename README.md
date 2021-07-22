@@ -1,10 +1,10 @@
 # TeSS API Client
-A gem for uploading data to the [TeSS](http://tess.elixir-uk.org) portal. Use if you have training or event content you wish to push to TeSS.
+A gem for uploading data to the [PaN catalogue](https://pan-training.hzdr.de) portal. Use if you have training or event content you wish to push to the PaN training catalogue.
 
 ## Get Started
-Add the TeSS API to your Gemfile and use bundle to install
+Add the catalogue API to your Gemfile and use bundle to install
 
-`$ echo "gem 'tess_api_client', :git => git://github.com/ElixirUK/TeSS_api_client.git" >> Gemfile`
+`$ echo "gem 'tess_api_client', :git => https://github.com/pan-training/training-catalogue-api-client" >> Gemfile`
 
 `$ bundle install` 
 
@@ -32,6 +32,3 @@ material = Tess::API::Material.new(
 
 material.create
 ```
-
-## Futher Examples
-More examples can be found in the `test` directory of this repository, or in the [TeSS Scrapers repository](https://github.com/ElixirTeSS/TeSS_scrapers)
