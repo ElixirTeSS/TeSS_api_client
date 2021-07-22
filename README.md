@@ -1,4 +1,4 @@
-# TeSS API Client
+# PaN Training Catalogue API Client
 A gem for uploading data to the [PaN catalogue](https://pan-training.hzdr.de) portal. Use if you have training or event content you wish to push to the PaN training catalogue.
 
 ## Get Started
