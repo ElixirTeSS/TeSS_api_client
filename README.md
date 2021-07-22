@@ -8,7 +8,7 @@ Add the catalogue API to your Gemfile and use bundle to install
 
 `$ bundle install` 
 
-Create a new ruby script which uses the gem. Use the ContentProvider model to create a new content provider in TeSS and the Material or Event model to create new resources. 
+Create a new ruby script which uses the gem. Use the ContentProvider model to create a new content provider in our catalogue and the Material or Event model to create new resources. 
 `$ nano my_upload_script.rb`
 
 ```ruby
