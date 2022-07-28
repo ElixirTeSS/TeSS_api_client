@@ -15,7 +15,8 @@ class ContentProviderTest < Test::Unit::TestCase
           description: 'Hey!',
           content_provider_type: 'anything?',
           node_name: 'Francis',
-          keywords: ['cat', 'dog'] })
+          keywords: ['cat', 'dog'],
+          contact: 'Jane Smith' })
 
     @content_provider_to_be_created = Tess::API::ContentProvider.new(
         { title: 'Provider of Content',
@@ -96,10 +97,14 @@ class ContentProviderTest < Test::Unit::TestCase
     c.keywords = ['hamster']
     assert_equal ['hamster'], c.keywords
 
+    assert_equal 'Jane Smith', c.contact
+    c.contact = 'Robert Smith'
+    assert_equal 'Robert Smith', c.contact
+
     dump = c.dump
     parsed_json = JSON.parse(c.to_json)
 
-    [:title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords].each do |attr|
+    [:title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords, :contact].each do |attr|
       assert_equal c.send(attr), c[attr.to_s], "Unexpected value of '#{attr}' for content provider when using []"
       assert_equal c.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for content provider in hash dump"
       assert_equal c.send(attr).to_s, parsed_json[attr.to_s].to_s, "Unexpected value of '#{attr}' for content provider in JSON"

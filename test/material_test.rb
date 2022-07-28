@@ -7,8 +7,7 @@ class MaterialTest < Test::Unit::TestCase
         { content_provider_id: 123,
           title: 'A new material',
           url: 'http://example.com/materials/789',
-          short_description: 'A cool material',
-          long_description: 'A cooooooool material',
+          description: 'A cool material',
           remote_created_date: '2016-08-10',
           resource_type: 'Video',
           keywords: ['dog', 'cat'],
@@ -18,8 +17,7 @@ class MaterialTest < Test::Unit::TestCase
         { id: 1,
           title: 'Interesting Material',
           url: 'http://example.com/materials/123',
-          short_description: 'Super interesting',
-          long_description: 'Super duper interesting',
+          description: 'Super interesting',
           doi: '10.5072/doi/123',
           remote_created_date: '2016-02-01',
           remote_updated_date: '2016-02-06',
@@ -33,14 +31,25 @@ class MaterialTest < Test::Unit::TestCase
           authors: ['Davina', 'Stacy'],
           target_audience: ['guys', 'gals'],
           node_ids: [8,9],
-          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}] })
+          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}],
+          other_types: 'Podcast, White Paper',
+          version: '1.0.4',
+          status: 'active',
+          date_created: '2021-06-12',
+          date_modified: '2021-06-13',
+          date_published: '2021-06-14',
+          subsets: ['https://training.com/material/023/part-one', 'https://training.com/material/023/part-two'],
+          prerequisites: 'Bring your enthusiasm',
+          syllabus: "1. Overview\  2. The main part\  3. Summary",
+          learning_objectives: "- Understand the new materials model\  - Apply the new material model",
+          fields: ['Software Engineering','MATHEMATICS']
+        })
 
     @material_to_be_created = Tess::API::Material.new(
         { content_provider_id: 1,
           title: 'A new material',
           url: 'http://example.com/materials/789',
-          short_description: 'A cool material',
-          long_description: 'A cooooooool material',
+          description: 'A cool material',
           remote_created_date: '2016-08-10',
           keywords: ['dog', 'cat'],
           licence: 'GPL-3.0'
@@ -51,14 +60,14 @@ class MaterialTest < Test::Unit::TestCase
           title: 'An existing material',
           url: 'http://example.com/materials/existing',
           keywords: ['dog', 'cat'],
-          short_description: 'a',
+          description: 'a',
           licence: 'GPL-3.0'
         })
 
     @non_existing_material = Tess::API::Material.new(
         { content_provider_id: 1,
           title: 'An novel material',
-          short_description: 'a',
+          description: 'a',
           url: 'http://example.com/materials/123'
         })
 
@@ -76,8 +85,7 @@ class MaterialTest < Test::Unit::TestCase
             }),
           title: 'A new material with an existing content provider',
           url: 'http://example.com/materials/nmwecp',
-          short_description: 'A cool material',
-          long_description: 'A cooooooool material',
+          description: 'A cool material',
           remote_created_date: '2016-08-10',
           keywords: ['dog', 'cat'],
           licence: 'GPL-3.0'
@@ -90,8 +98,7 @@ class MaterialTest < Test::Unit::TestCase
             }),
           title: 'A new material with a new content provider',
           url: 'http://example.com/materials/nmwncp',
-          short_description: 'A cool material',
-          long_description: 'A cooooooool material',
+          description: 'A cool material',
           remote_created_date: '2016-08-10',
           keywords: ['dog', 'cat'],
           licence: 'GPL-3.0'
@@ -109,8 +116,7 @@ class MaterialTest < Test::Unit::TestCase
           { content_provider_id: 123,
                                 title: 'A new material',
                                 url: 'http://example.com/materials/789',
-                                short_description: 'A cool material',
-                                long_description: 'A cooooooool material',
+                                description: 'A cool material',
                                 remote_created_date: '2016-08-10',
                                 keywords: ['dog', 'cat'],
                                 licence: 'GPL-3.0' })
@@ -132,13 +138,9 @@ class MaterialTest < Test::Unit::TestCase
     m.url = 'http://example.com/materials/456'
     assert_equal 'http://example.com/materials/456', m.url
 
-    assert_equal 'Super interesting', m.short_description
-    m.short_description = 'So interesting'
-    assert_equal 'So interesting', m.short_description
-
-    assert_equal 'Super duper interesting', m.long_description
-    m.long_description = 'Sooooooo interesting'
-    assert_equal 'Sooooooo interesting', m.long_description
+    assert_equal 'Super interesting', m.description
+    m.description = 'So interesting'
+    assert_equal 'So interesting', m.description
 
     assert_equal '10.5072/doi/123', m.doi
     m.doi = '10.5072/doi/456'
@@ -198,14 +200,59 @@ class MaterialTest < Test::Unit::TestCase
     assert_equal 'Better resource', m.external_resources_attributes.first[:title]
     assert_equal 'http://www.example.com/resources/4', m.external_resources_attributes.first[:url]
 
+    assert_equal 'Podcast, White Paper', m.other_types
+    m.other_types = 'Another Type'
+    assert_equal 'Another Type', m.other_types
+
+    assert_equal '1.0.4', m.version
+    m.version = '1.1.0'
+    assert_equal '1.1.0', m.version
+
+    assert_equal 'active', m.status
+    m.status = 'development'
+    assert_equal 'development', m.status
+
+    assert_equal '2021-06-12', m.date_created
+    m.date_created = '2021-06-13'
+    assert_equal '2021-06-13', m.date_created
+
+    assert_equal '2021-06-13', m.date_modified
+    m.date_modified = '2021-06-14'
+    assert_equal '2021-06-14', m.date_modified
+
+    assert_equal '2021-06-14', m.date_published
+    m.date_published = '2021-06-15'
+    assert_equal '2021-06-15', m.date_published
+
+    assert_equal ['https://training.com/material/023/part-one', 'https://training.com/material/023/part-two'], m.subsets
+    m.subsets = ['https://training.com/material/023/part-two']
+    assert_equal ['https://training.com/material/023/part-two'], m.subsets
+
+    assert_equal 'Bring your enthusiasm', m.prerequisites
+    m.prerequisites = 'Foo'
+    assert_equal 'Foo', m.prerequisites
+
+    assert_equal "1. Overview\  2. The main part\  3. Summary", m.syllabus
+    m.syllabus = 'Bar'
+    assert_equal "Bar", m.syllabus
+
+    assert_equal "- Understand the new materials model\  - Apply the new material model", m.learning_objectives
+    m.learning_objectives = 'Learn stuff'
+    assert_equal "Learn stuff", m.learning_objectives
+
+    assert_equal ['Software Engineering','MATHEMATICS'], m.fields
+    m.fields = ['Software Engineering']
+    assert_equal ['Software Engineering'], m.fields
+
+
     dump = m.dump
     parsed_json = JSON.parse(m.to_json, symbolize_names: true)
-
-    [:id, :title, :url, :short_description, :long_description, :doi,:last_scraped, :scraper_record,
+    [:id, :title, :url, :description, :doi,:last_scraped, :scraper_record,
      :remote_created_date,  :remote_updated_date, :package_ids, :keywords,
      :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
      :licence, :difficulty_level, :contributors, :authors, :target_audience, :node_ids,
-     :external_resources_attributes, :resource_type].each do |attr|
+     :external_resources_attributes, :resource_type, :other_types, :version, :status, :date_created, :date_modified,
+     :date_published, :subsets, :prerequisites, :syllabus, :learning_objectives, :fields].each do |attr|
       assert_equal m.send(attr), m[attr.to_s], "Unexpected value of '#{attr}' for material when using []"
       assert_equal m.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for material in hash dump"
       assert_equal m.send(attr).to_s, parsed_json[attr].to_s, "Unexpected value of '#{attr}' for material in JSON"
@@ -330,9 +377,8 @@ class MaterialTest < Test::Unit::TestCase
   test 'stores errors when attempting to create invalid material' do
     VCR.use_cassette('invalid_material_upload') do
       mat = @invalid_material.create
-      assert_include mat.errors.keys, 'short_description'
+      assert_include mat.errors.keys, 'description'
       assert_include mat.errors.keys, 'url'
     end
   end
-
 end

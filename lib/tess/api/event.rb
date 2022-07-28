@@ -17,7 +17,11 @@ module Tess
                     :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
                     :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
                     :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
-                    :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone
+                    :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone,
+                    :cost_value, :funding, :attendee_count, :applicant_count, :trainer_count, :feedback, :notes,
+                    :duration, :recognition, :learning_objectives, :prerequisites, :tech_requirements, :cost_basis,
+                    :cost_currency, :fields
+
 
       EVENT_TYPE = {
           awards_and_prizegivings: 'awards_and_prizegivings',

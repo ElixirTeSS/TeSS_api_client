@@ -12,7 +12,8 @@ module Tess
         'content_providers'
       end
 
-      attr_accessor :title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords
+      attr_accessor :title, :url, :image_url, :description, :id, :content_provider_type, :node_name, :keywords,
+                    :contact
 
       PROVIDER_TYPE = {
           organisation: 'Organisation',

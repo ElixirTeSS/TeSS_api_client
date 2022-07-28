@@ -1,10 +1,7 @@
 module Tess
   module API
     require 'inifile'
-    require 'net/http'
-    require 'net/https'
     require 'json'
-    require 'open-uri'
     require 'digest/sha1'
     require 'rest-client'
 

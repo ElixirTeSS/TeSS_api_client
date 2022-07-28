@@ -50,7 +50,7 @@ http_interactions:
       - Keep-Alive
     body:
       encoding: UTF-8
-      string: '{"short_description":["can''t be blank"],"url":["can''t be blank","is
+      string: '{"description":["can''t be blank"],"url":["can''t be blank","is
         an invalid URL"]}'
     http_version: 
   recorded_at: Mon, 31 Oct 2016 15:06:31 GMT

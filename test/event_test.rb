@@ -47,7 +47,16 @@ class EventTest < Test::Unit::TestCase
           host_institutions: ['uni1', 'uni2'],
           capacity: 10,
           contact: 'Bill Gates (bg@example.com)',
-          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}]
+          external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}],
+          cost_value: 9.99,
+          duration: '2 hours',
+          recognition: 'Thumbs up',
+          learning_objectives: 'Learn things',
+          prerequisites: 'Know stuff',
+          tech_requirements: 'Laptop',
+          cost_basis: 'charge',
+          cost_currency: 'AUD',
+          fields: ['Sequence analysis']
         })
 
     @event_to_be_created = Tess::API::Event.new(
@@ -271,6 +280,42 @@ class EventTest < Test::Unit::TestCase
     assert_equal 'Another resource', e.external_resources_attributes.first[:title]
     assert_equal 'http://www.example.com/resources/3', e.external_resources_attributes.first[:url]
 
+    assert_equal 9.99, e.cost_value
+    e.cost_value = 4.99
+    assert_equal 4.99, e.cost_value
+
+    assert_equal '2 hours', e.duration
+    e.duration = '45 minutes'
+    assert_equal '45 minutes', e.duration
+
+    assert_equal 'Thumbs up', e.recognition
+    e.recognition = 'Two thumbs up'
+    assert_equal 'Two thumbs up', e.recognition
+
+    assert_equal 'Learn things', e.learning_objectives
+    e.learning_objectives = 'Learn nothing'
+    assert_equal 'Learn nothing', e.learning_objectives
+
+    assert_equal 'Know stuff', e.prerequisites
+    e.prerequisites = 'Know nothing'
+    assert_equal 'Know nothing', e.prerequisites
+
+    assert_equal 'Laptop', e.tech_requirements
+    e.tech_requirements = 'Phone'
+    assert_equal 'Phone', e.tech_requirements
+
+    assert_equal 'charge', e.cost_basis
+    e.cost_basis = 'hosts'
+    assert_equal 'hosts', e.cost_basis
+
+    assert_equal 'AUD', e.cost_currency
+    e.cost_currency = 'GBP'
+    assert_equal 'GBP', e.cost_currency
+
+    assert_equal ['Sequence analysis'], e.fields
+    e.fields = ['Translational and applied bioinformatics', 'Data management and data science']
+    assert_equal ['Translational and applied bioinformatics', 'Data management and data science'], e.fields
+    
     dump = e.dump
     parsed_json = JSON.parse(e.to_json, symbolize_names: true)
 
@@ -278,7 +323,9 @@ class EventTest < Test::Unit::TestCase
      :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
      :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
      :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
-     :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone].each do |attr|
+     :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone,
+     :cost_value, :duration, :recognition, :learning_objectives, :prerequisites, :tech_requirements, :cost_basis,
+     :cost_currency, :fields].each do |attr|
       assert_equal e.send(attr), e[attr.to_s], "Unexpected value of '#{attr}' for event when using []"
       assert_equal e.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for event in hash dump"
       assert_equal e.send(attr).to_s, parsed_json[attr].to_s, "Unexpected value of '#{attr}' for event in JSON"
