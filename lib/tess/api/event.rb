@@ -15,12 +15,11 @@ module Tess
 
       attr_accessor :id, :external_id, :title, :subtitle, :url, :organizer, :last_scraped, :scraper_record, :description,
                     :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
-                    :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
-                    :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
-                    :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone,
-                    :cost_value, :funding, :attendee_count, :applicant_count, :trainer_count, :feedback, :notes,
-                    :duration, :recognition, :learning_objectives, :prerequisites, :tech_requirements, :cost_basis,
-                    :cost_currency, :fields
+                    :event_types, :keywords, :fields, :start, :end, :duration, :sponsors, :online, :venue,
+                    :city, :county, :country, :postcode, :latitude, :longitude, :timezone, :collection_ids, :node_ids,
+                    :node_names, :target_audience, :eligibility, :host_institutions, :capacity, :contact, :recognition,
+                    :learning_objectives, :prerequisites, :tech_requirements, :cost_basis, :cost_value, :cost_currency,
+                    :external_resources_attributes
 
 
       EVENT_TYPE = {

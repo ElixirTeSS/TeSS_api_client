@@ -6,7 +6,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"material":{"content_provider_id":1,"title":"An novel material","url":"http://example.com/materials/123","last_scraped":"2016-10-06
-        15:45:27 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"keywords":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
+        15:45:27 +0100","scraper_record":true,"scientific_topic_names":[null],"collection_ids":[null],"keywords":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
     headers:
       Content-Type:
       - application/json

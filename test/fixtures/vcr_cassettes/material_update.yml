@@ -6,7 +6,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","material":{"id":170,"title":"Adjusted
-        title","keywords":["bear"],"last_scraped":"2016-10-06 16:06:16 +0100","scraper_record":true,"scientific_topic_names":[null],"package_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
+        title","keywords":["bear"],"last_scraped":"2016-10-06 16:06:16 +0100","scraper_record":true,"scientific_topic_names":[null],"collection_ids":[null],"contributors":[null],"authors":[null],"target_audience":[null],"node_ids":[null]}}'
     headers:
       Content-Type:
       - application/json
@@ -50,7 +50,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"id":170,"title":"Adjusted title","url":"http://example.com/materials/789","description":"A
-        cool material","doi":null,"remote_updated_date":null,"remote_created_date":"2016-08-10","created_at":"2016-10-06T14:40:56.006Z","updated_at":"2016-10-06T15:06:16.237Z","package_ids":[],"content_provider_id":1,"keywords":["bear"],"scientific_topics":[],"licence":"GPL-3.0","difficulty_level":"notspecified","contributors":[],"authors":[],"target_audience":[]}'
+        cool material","doi":null,"remote_updated_date":null,"remote_created_date":"2016-08-10","created_at":"2016-10-06T14:40:56.006Z","updated_at":"2016-10-06T15:06:16.237Z","collection_ids":[],"content_provider_id":1,"keywords":["bear"],"scientific_topics":[],"licence":"GPL-3.0","difficulty_level":"notspecified","contributors":[],"authors":[],"target_audience":[]}'
     http_version: 
   recorded_at: Thu, 06 Oct 2016 15:06:16 GMT
 recorded_with: VCR 3.0.3

@@ -21,7 +21,7 @@ class MaterialTest < Test::Unit::TestCase
           doi: '10.5072/doi/123',
           remote_created_date: '2016-02-01',
           remote_updated_date: '2016-02-06',
-          package_ids: [1,2],
+          collection_ids: [1,2],
           content_provider_id: 1,
           keywords: ['interesting', 'material'],
           scientific_topic_names: ['Proteins', 'Metabolites'],
@@ -31,6 +31,7 @@ class MaterialTest < Test::Unit::TestCase
           authors: ['Davina', 'Stacy'],
           target_audience: ['guys', 'gals'],
           node_ids: [8,9],
+          node_names: ['Greece', 'Israel'],
           external_resources_attributes: [{ title: 'A resource', url: 'http://www.example.com/resources/2'}],
           other_types: 'Podcast, White Paper',
           version: '1.0.4',
@@ -42,7 +43,8 @@ class MaterialTest < Test::Unit::TestCase
           prerequisites: 'Bring your enthusiasm',
           syllabus: "1. Overview\  2. The main part\  3. Summary",
           learning_objectives: "- Understand the new materials model\  - Apply the new material model",
-          fields: ['Software Engineering','MATHEMATICS']
+          fields: ['Software Engineering','MATHEMATICS'],
+          event_ids: [456],
         })
 
     @material_to_be_created = Tess::API::Material.new(
@@ -154,9 +156,9 @@ class MaterialTest < Test::Unit::TestCase
     m.remote_updated_date = '2016-03-06'
     assert_equal '2016-03-06', m.remote_updated_date
 
-    assert_equal [1,2], m.package_ids
-    m.package_ids = [3,4]
-    assert_equal [3,4], m.package_ids
+    assert_equal [1,2], m.collection_ids
+    m.collection_ids = [3,4]
+    assert_equal [3,4], m.collection_ids
 
     assert_equal 1, m.content_provider_id
     m.content_provider_id = 2
@@ -193,6 +195,10 @@ class MaterialTest < Test::Unit::TestCase
     assert_equal [8,9], m.node_ids
     m.node_ids = [10]
     assert_equal [10], m.node_ids
+
+    assert_equal ['Greece','Israel'], m.node_names
+    m.node_names = ['Italy']
+    assert_equal ['Italy'], m.node_names
 
     assert_equal 'A resource', m.external_resources_attributes.first[:title]
     assert_equal 'http://www.example.com/resources/2', m.external_resources_attributes.first[:url]
@@ -244,15 +250,14 @@ class MaterialTest < Test::Unit::TestCase
     m.fields = ['Software Engineering']
     assert_equal ['Software Engineering'], m.fields
 
-
     dump = m.dump
     parsed_json = JSON.parse(m.to_json, symbolize_names: true)
     [:id, :title, :url, :description, :doi,:last_scraped, :scraper_record,
-     :remote_created_date,  :remote_updated_date, :package_ids, :keywords,
+     :remote_created_date,  :remote_updated_date, :collection_ids, :keywords,
      :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
-     :licence, :difficulty_level, :contributors, :authors, :target_audience, :node_ids,
+     :licence, :difficulty_level, :contributors, :authors, :target_audience, :node_ids, :node_names,
      :external_resources_attributes, :resource_type, :other_types, :version, :status, :date_created, :date_modified,
-     :date_published, :subsets, :prerequisites, :syllabus, :learning_objectives, :fields].each do |attr|
+     :date_published, :subsets, :prerequisites, :syllabus, :learning_objectives, :fields, :event_ids].each do |attr|
       assert_equal m.send(attr), m[attr.to_s], "Unexpected value of '#{attr}' for material when using []"
       assert_equal m.send(attr), dump[attr.to_s], "Unexpected value of '#{attr}' for material in hash dump"
       assert_equal m.send(attr).to_s, parsed_json[attr].to_s, "Unexpected value of '#{attr}' for material in JSON"

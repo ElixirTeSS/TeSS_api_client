@@ -7,7 +7,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"user_email":"test.user@example.com","user_token":"MxpE_AQk3BNZvFU_ES9M","material":{"content_provider_id":123,"title":"Missing
         field material","keywords":[],"licence":"GPL-3.0","last_scraped":"2016-10-31
-        15:06:30 +0000","scraper_record":true,"scientific_topic_names":[],"package_ids":[],"contributors":[],"authors":[],"target_audience":[],"node_ids":[]}}'
+        15:06:30 +0000","scraper_record":true,"scientific_topic_names":[],"collection_ids":[],"contributors":[],"authors":[],"target_audience":[],"node_ids":[]}}'
     headers:
       Accept:
       - "*/*"

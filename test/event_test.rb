@@ -32,7 +32,6 @@ class EventTest < Test::Unit::TestCase
           timezone: 'EST',
           sponsors: ['Bill Gates'],
           online: true,
-          for_profit: true,
           venue: 'A place',
           city: 'Manchester',
           county: 'Lancashire',
@@ -40,8 +39,9 @@ class EventTest < Test::Unit::TestCase
           postcode: 'M13 9PL',
           latitude: 50,
           longitude: 40,
-          package_ids: [1,2],
+          collection_ids: [1,2],
           node_ids: [3,4],
+          node_names: ['Denmark', 'EMBL-EBI'],
           target_audience: ['people'],
           eligibility: ['interested'],
           host_institutions: ['uni1', 'uni2'],
@@ -214,10 +214,6 @@ class EventTest < Test::Unit::TestCase
     e.online = false
     assert_equal false, e.online
 
-    assert_equal true, e.for_profit
-    e.for_profit = false
-    assert_equal false, e.for_profit
-
     assert_equal 'A place', e.venue
     e.venue = 'Somewhere else'
     assert_equal 'Somewhere else', e.venue
@@ -246,13 +242,17 @@ class EventTest < Test::Unit::TestCase
     e.longitude = 60
     assert_equal 60, e.longitude
 
-    assert_equal [1,2], e.package_ids
-    e.package_ids = [3,4,5]
-    assert_equal [3,4,5], e.package_ids
+    assert_equal [1,2], e.collection_ids
+    e.collection_ids = [3,4,5]
+    assert_equal [3,4,5], e.collection_ids
 
     assert_equal [3,4], e.node_ids
     e.node_ids = []
     assert_equal [], e.node_ids
+
+    assert_equal ['Denmark','EMBL-EBI'], e.node_names
+    e.node_names = []
+    assert_equal [], e.node_names
 
     assert_equal ['people'], e.target_audience
     e.target_audience = ['people','animals']
@@ -321,8 +321,8 @@ class EventTest < Test::Unit::TestCase
 
     [:id, :external_id, :title, :subtitle, :url, :organizer, :last_scraped, :scraper_record, :description,
      :scientific_topic_names, :scientific_topic_uris, :operation_names, :operation_uris,
-     :event_types, :keywords, :start, :end, :sponsors, :online, :for_profit, :venue,
-     :city, :county, :country, :postcode, :latitude, :longitude, :package_ids, :node_ids, :target_audience,
+     :event_types, :keywords, :start, :end, :sponsors, :online, :venue,
+     :city, :county, :country, :postcode, :latitude, :longitude, :collection_ids, :node_ids, :node_names, :target_audience,
      :eligibility, :host_institutions, :capacity, :contact, :external_resources_attributes, :timezone,
      :cost_value, :duration, :recognition, :learning_objectives, :prerequisites, :tech_requirements, :cost_basis,
      :cost_currency, :fields].each do |attr|
