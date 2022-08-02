@@ -27,6 +27,7 @@ module Tess
         # TODO: Check if this is really necessary:
         [:scientific_topic_names, :operation_names, :collection_ids, :keywords, :contributors,
          :authors, :target_audience, :node_ids, :external_resources_attributes].each do |attr|
+          next unless params.key?(attr)
           params[attr] = [params[attr]].flatten.compact
         end
 

@@ -386,4 +386,9 @@ class MaterialTest < Test::Unit::TestCase
       assert_include mat.errors.keys, 'url'
     end
   end
+
+  test 'do not convert missing attributes to empty arrays' do
+    material = Tess::API::Material.new
+    assert_nil material.keywords
+  end
 end
