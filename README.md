@@ -4,12 +4,31 @@ A gem for uploading data to the [TeSS](http://tess.elixir-uk.org) portal. Use if
 ## Get Started
 Add the TeSS API to your Gemfile and use bundle to install
 
-`$ echo "gem 'tess_api_client', :git => git://github.com/ElixirUK/TeSS_api_client.git" >> Gemfile`
+    echo "gem 'tess_api_client', :git => git://github.com/ElixirUK/TeSS_api_client.git" >> Gemfile
 
-`$ bundle install` 
+    bundle install 
 
-Create a new ruby script which uses the gem. Use the ContentProvider model to create a new content provider in TeSS and the Material or Event model to create new resources. 
-`$ nano my_upload_script.rb`
+Create a config file containing the TeSS instance info & your TeSS credentials (uses <https://dev.tess.elixir-europe.org> by default):
+
+    cp uploader_config.example.txt uploader_config.txt
+
+    nano uploader_config.txt
+
+...OR configure in your code:
+
+```ruby
+Tess::API.config = {
+    'host' => 'dev.tess.elixir-europe.org',
+    'port' => '443',
+    'protocol' => 'https',
+    'user_email' => 'test.user@example.com',
+    'user_token' => 'MyAPIToken'
+}
+```
+
+Create a new ruby script which uses the gem. Use the ContentProvider model to create a new content provider in TeSS and the Material or Event model to create new resources.
+
+    $ nano my_upload_script.rb
 
 ```ruby
 require 'tess_api_client'
@@ -30,8 +49,8 @@ material = Tess::API::Material.new(
     scientific_topic: ['Computational Biology'],
     keywords: ['tutorial', 'TeSS', 'sharing'])
 
-material.create
+material.create_or_update # Creates the material, or updates the existing entry if it already exists
 ```
 
-## Futher Examples
+## Further Examples
 More examples can be found in the `test` directory of this repository, or in the [TeSS Scrapers repository](https://github.com/ElixirTeSS/TeSS_scrapers)

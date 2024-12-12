@@ -1,0 +1,7 @@
+[Main]
+host = dev.tess.elixir-europe.org
+protocol = https
+port = 443
+user_token = my_secret_api_string
+user_email = me@elixir.eu
+debug = false
